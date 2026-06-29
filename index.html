@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MANOLOGICS — Autonomous Revenue Infrastructure</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#05070D;--bg2:#0A0F1C;--card:rgba(15,23,42,0.72);
+  --border:rgba(96,165,250,0.22);--border2:rgba(96,165,250,0.12);
+  --blue:#2563EB;--blue-light:#60a5fa;--cyan:#06B6D4;--purple:#8B5CF6;
+  --green:#22C55E;--amber:#F59E0B;--red:#EF4444;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6;}
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--purple));border-radius:4px;}
+
+/* AMBIENT BACKGROUND */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 800px 600px at 70% 0%,rgba(37,99,235,0.12),transparent 60%),radial-gradient(ellipse 600px 500px at 20% 30%,rgba(139,92,246,0.08),transparent 60%);}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(96,165,250,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black,transparent 80%);}
+#cursor-aura{position:fixed;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(96,165,250,0.06),transparent 70%);transform:translate(-50%,-50%);transition:opacity .5s;mix-blend-mode:screen;}
+.particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.particle{position:absolute;width:2px;height:2px;background:var(--blue-light);border-radius:50%;opacity:.4;animation:float-up linear infinite;}
+@keyframes float-up{from{transform:translateY(0);opacity:0;}10%{opacity:.5;}90%{opacity:.3;}to{transform:translateY(-100vh);opacity:0;}}
+
+.wrap{position:relative;z-index:2;}
+.container{max-width:1280px;margin:0 auto;padding:0 24px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(5,7,13,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-m{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;box-shadow:0 0 20px rgba(37,99,235,0.5);font-family:'Space Grotesk';}
+.logo-text{font-size:18px;font-weight:800;letter-spacing:2px;font-family:'Space Grotesk';}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-right{display:flex;gap:12px;align-items:center;}
+.btn{padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border);}
+.btn-ghost:hover{color:var(--text);border-color:var(--blue-light);}
+.btn-gradient{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 0 25px rgba(37,99,235,0.4);}
+.btn-gradient:hover{box-shadow:0 0 35px rgba(37,99,235,0.7);transform:translateY(-1px);}
+.btn-gold{background:linear-gradient(135deg,#FCE38A,#F9D423);color:#000;}
+
+/* HERO */
+.hero{padding:60px 0 40px;position:relative;}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,0.1);border:1px solid var(--border);color:var(--blue-light);font-size:11px;font-weight:600;letter-spacing:1.5px;padding:6px 14px;border-radius:30px;margin-bottom:24px;}
+.eyebrow .pdot{width:6px;height:6px;border-radius:50%;background:var(--blue-light);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(96,165,250,.4);}70%{box-shadow:0 0 0 8px rgba(96,165,250,0);}50%{opacity:.6;}}
+h1.hero-title{font-size:54px;font-weight:800;line-height:1.08;letter-spacing:-1px;margin-bottom:20px;font-family:'Space Grotesk';}
+.grad-text{background:linear-gradient(135deg,var(--blue-light),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:16px;color:var(--text2);margin-bottom:30px;max-width:520px;}
+.hero-ctas{display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+.hero-features{display:flex;gap:20px;flex-wrap:wrap;}
+.hero-feat{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);}
+.hero-feat .ck{color:var(--green);}
+
+/* ORUS CORE */
+.orus-core{position:relative;display:flex;align-items:center;justify-content:center;height:420px;}
+.orus-rings{position:absolute;width:340px;height:340px;}
+.ring{position:absolute;border-radius:50%;border:1px solid var(--border);inset:0;}
+.ring:nth-child(1){animation:spin 20s linear infinite;border-color:rgba(96,165,250,0.2);}
+.ring:nth-child(2){inset:30px;animation:spin 15s linear infinite reverse;border-color:rgba(139,92,246,0.15);border-style:dashed;}
+.ring:nth-child(3){inset:60px;animation:spin 25s linear infinite;border-color:rgba(6,182,212,0.15);}
+@keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+.orus-face{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(37,99,235,0.3),rgba(139,92,246,0.2),rgba(5,7,13,0.9));display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:0 0 60px rgba(37,99,235,0.4),inset 0 0 40px rgba(139,92,246,0.2);border:1px solid var(--border);}
+.orus-face::before{content:'';position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(0deg,transparent,transparent 6px,rgba(96,165,250,0.04) 7px,transparent 8px);animation:scan 4s linear infinite;}
+@keyframes scan{from{background-position:0 0;}to{background-position:0 60px;}}
+.orus-emoji{font-size:60px;filter:drop-shadow(0 0 20px rgba(96,165,250,0.6));z-index:2;}
+.orus-label{text-align:center;z-index:2;margin-top:6px;}
+.orus-name{font-size:22px;font-weight:800;letter-spacing:4px;font-family:'Space Grotesk';background:linear-gradient(135deg,var(--blue-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.orus-role{font-size:9px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;}
+.orus-status-card{position:absolute;bottom:0;background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px;padding:10px 18px;text-align:center;}
+.orus-status-card .s-name{font-size:13px;font-weight:700;letter-spacing:2px;}
+.orus-status-card .s-role{font-size:9px;color:var(--text2);letter-spacing:1px;}
+.orus-status-card .s-live{font-size:9px;color:var(--green);margin-top:3px;}
+
+/* WAVEFORM */
+.waveform{display:flex;align-items:center;gap:3px;height:30px;justify-content:center;}
+.wbar{width:3px;border-radius:2px;background:linear-gradient(to top,var(--blue),var(--cyan));animation:wave 1.2s ease-in-out infinite;}
+@keyframes wave{0%,100%{transform:scaleY(.4);opacity:.6;}50%{transform:scaleY(1.4);opacity:1;}}
+
+/* SECTION */
+.section{padding:70px 0;position:relative;}
+.section-eyebrow{text-align:center;color:var(--blue-light);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.section-title{text-align:center;font-size:38px;font-weight:800;letter-spacing:-0.5px;margin-bottom:14px;font-family:'Space Grotesk';}
+.section-sub{text-align:center;font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 44px;}
+
+/* CARDS */
+.card{background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--border2);border-radius:18px;padding:24px;transition:all .3s cubic-bezier(0.16,1,0.3,1);}
+.card:hover{transform:translateY(-4px);border-color:var(--border);box-shadow:0 20px 50px -15px rgba(0,0,0,0.6),0 0 30px rgba(37,99,235,0.1);}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;}
+.stat-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:18px;text-align:center;}
+.stat-num{font-size:30px;font-weight:800;font-family:'Space Mono';line-height:1;}
+.stat-label{font-size:11px;color:var(--text2);margin-top:8px;}
+
+/* SANDBOX */
+.sandbox-grid{display:grid;grid-template-columns:1fr 1.4fr 0.9fr;gap:16px;}
+.industry-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;justify-content:center;}
+.ind-btn{padding:8px 16px;border-radius:30px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.ind-btn:hover{border-color:var(--blue-light);color:var(--text);}
+.ind-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border-color:transparent;box-shadow:0 0 20px rgba(37,99,235,0.4);}
+.transcript{max-height:280px;overflow-y:auto;}
+.t-msg{margin-bottom:12px;}
+.t-who{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:4px;}
+.t-who.ai{color:var(--blue-light);}.t-who.cust{color:var(--cyan);}
+.t-bubble{padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.5;}
+.t-bubble.ai{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.15);}
+.t-bubble.cust{background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.12);}
+.metric-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2);font-size:12px;}
+.metric-row:last-child{border:none;}
+.metric-row .ml{color:var(--text2);}
+.metric-row .mv{font-weight:700;}
+.mic-btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:22px;margin:16px auto 0;cursor:pointer;box-shadow:0 0 0 0 rgba(37,99,235,0.5);animation:mic-pulse 2s infinite;}
+@keyframes mic-pulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,0.5);}70%{box-shadow:0 0 0 16px rgba(37,99,235,0);}}
+.chk-item{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;}
+.chk{width:16px;height:16px;border-radius:5px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+
+/* INDUSTRY CARDS */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.ind-card .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;background:rgba(37,99,235,0.1);border:1px solid var(--border);}
+.ind-card h3{font-size:16px;font-weight:700;margin-bottom:8px;font-family:'Space Grotesk';}
+.ind-card p{font-size:13px;color:var(--text2);margin-bottom:14px;}
+.ind-card .try{color:var(--blue-light);font-size:12px;font-weight:600;cursor:pointer;}
+
+/* WORKFORCE */
+.wf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.wf-card{position:relative;overflow:hidden;}
+.wf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple),transparent);}
+.wf-av{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;background:linear-gradient(135deg,rgba(37,99,235,0.15),rgba(139,92,246,0.1));border:1px solid var(--border);}
+.wf-card h3{font-size:16px;font-weight:700;font-family:'Space Grotesk';}
+.wf-role{font-size:11px;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.wf-card p{font-size:13px;color:var(--text2);}
+
+/* WORKFLOW BUILDER */
+.flow-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:30px;}
+.flow-nodes{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0;}
+.flow-node{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px;}
+.flow-node:hover,.flow-node.active{border-color:var(--blue-light);background:rgba(37,99,235,0.1);box-shadow:0 0 20px rgba(37,99,235,0.2);}
+.flow-conn{color:var(--blue-light);font-size:18px;padding:0 10px;animation:flow-pulse 2s infinite;}
+@keyframes flow-pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+.diag-panel{margin-top:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.diag-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid var(--border2);}
+.diag-row:last-child{border:none;}
+.diag-row .dl{color:var(--text2);}
+
+/* COUNTERS */
+.counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.counter-card{text-align:center;}
+.counter-num{font-size:34px;font-weight:800;font-family:'Space Mono';background:linear-gradient(135deg,var(--blue-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.counter-label{font-size:12px;color:var(--text2);margin-top:8px;}
+
+/* ROI */
+.roi-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;}
+.slider-group{margin-bottom:22px;}
+.slider-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;}
+.slider-label .sv{color:var(--blue-light);font-weight:700;font-family:'Space Mono';}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--bg2);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));cursor:pointer;box-shadow:0 0 12px rgba(37,99,235,0.6);}
+.roi-outputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
+.roi-out{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:16px;}
+.roi-out-label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.roi-out-val{font-size:24px;font-weight:800;font-family:'Space Mono';}
+.roi-chart{margin-top:20px;}
+
+/* DASHBOARD PREVIEW */
+.dash-preview{display:grid;grid-template-columns:180px 1fr;gap:0;background:var(--bg2);border:1px solid var(--border2);border-radius:18px;overflow:hidden;}
+.dash-side{background:var(--bg);border-right:1px solid var(--border2);padding:18px 0;}
+.dash-nav{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .2s;}
+.dash-nav:hover,.dash-nav.active{color:var(--blue-light);background:rgba(37,99,235,0.06);}
+.dash-main{padding:20px;}
+.dash-map{background:var(--bg);border:1px solid var(--border2);border-radius:12px;height:160px;position:relative;overflow:hidden;margin-bottom:16px;}
+.map-marker{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:marker-pulse 2s infinite;}
+@keyframes marker-pulse{0%,100%{box-shadow:0 0 0 0 rgba(6,182,212,.5);}70%{box-shadow:0 0 0 10px rgba(6,182,212,0);}}
+.dash-tbl{width:100%;border-collapse:collapse;}
+.dash-tbl th{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);padding:6px 8px;text-align:left;border-bottom:1px solid var(--border2);}
+.dash-tbl td{font-size:11px;padding:7px 8px;border-bottom:1px solid var(--border2);color:var(--text2);}
+
+/* INTEGRATIONS */
+.int-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+.int-card{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:16px;text-align:center;transition:all .25s;cursor:default;}
+.int-card:hover{border-color:var(--blue-light);transform:translateY(-2px);}
+.int-icon{font-size:22px;margin-bottom:6px;}
+.int-name{font-size:11px;color:var(--text2);}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.price-card{position:relative;}
+.price-card.featured{border-color:var(--blue);box-shadow:0 0 40px rgba(37,99,235,0.2);}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--blue),var(--purple));font-size:9px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:20px;}
+.price-tier{font-size:15px;font-weight:700;font-family:'Space Grotesk';margin-bottom:4px;}
+.price-desc{font-size:11px;color:var(--text2);margin-bottom:14px;}
+.price-amount{font-size:30px;font-weight:800;font-family:'Space Mono';}
+.price-sub{font-size:12px;color:var(--text2);margin-bottom:16px;}
+
+/* COMPARISON */
+.comp-tbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden;}
+.comp-tbl th{padding:14px;font-size:13px;font-weight:700;text-align:center;border-bottom:1px solid var(--border2);}
+.comp-tbl th:first-child{text-align:left;}
+.comp-tbl td{padding:12px 14px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text2);text-align:center;}
+.comp-tbl td:first-child{text-align:left;color:var(--text);}
+.comp-tbl .yes{color:var(--green);font-size:16px;}
+.comp-tbl .no{color:var(--red);font-size:16px;}
+.comp-mano{background:rgba(37,99,235,0.06);}
+
+/* BILINGUAL */
+.bil-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px;}
+.badge{background:rgba(37,99,235,0.1);border:1px solid var(--border);color:var(--blue-light);font-size:11px;padding:6px 14px;border-radius:20px;}
+
+/* CTA */
+.cta-section{text-align:center;padding:90px 0;position:relative;}
+.cta-section h2{font-size:44px;font-weight:800;margin-bottom:16px;font-family:'Space Grotesk';}
+.cta-section p{font-size:16px;color:var(--text2);margin-bottom:30px;max-width:600px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border2);padding:50px 0 30px;background:var(--bg2);}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px;}
+.footer-col h4{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;color:var(--text);}
+.footer-col a{display:block;color:var(--text2);text-decoration:none;font-size:13px;margin-bottom:8px;transition:color .2s;}
+.footer-col a:hover{color:var(--blue-light);}
+.footer-bottom{text-align:center;color:var(--text3);font-size:12px;padding-top:24px;border-top:1px solid var(--border2);}
+
+@media(max-width:1100px){
+  .hero-grid{grid-template-columns:1fr;}.orus-core{height:340px;}
+  .sandbox-grid{grid-template-columns:1fr;}.ind-grid,.wf-grid{grid-template-columns:1fr 1fr;}
+  .stats-bar,.counter-grid,.price-grid{grid-template-columns:1fr 1fr;}
+  .roi-grid,.bil-grid{grid-template-columns:1fr;}.int-grid{grid-template-columns:repeat(4,1fr);}
+  .dash-preview{grid-template-columns:1fr;}.dash-side{display:none;}
+  .nav-links{display:none;}h1.hero-title{font-size:40px;}
+}
+@media(max-width:640px){
+  .ind-grid,.wf-grid,.stats-bar,.counter-grid,.price-grid{grid-template-columns:1fr;}
+  .int-grid{grid-template-columns:repeat(3,1fr);}h1.hero-title{font-size:32px;}
+  .section-title{font-size:28px;}.cta-section h2{font-size:30px;}
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="grid-bg"></div>
+<div id="cursor-aura"></div>
+<div class="particles" id="particles"></div>
+
+<div class="wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-m">M</div>
+      <div class="logo-text">MANOLOGICS</div>
+    </div>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#agents">Voice Agents</a>
+      <a href="#industries">Industries</a>
+      <a href="#workflow">Automations</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="btn btn-ghost">Login</a>
+      <a href="#demo" class="btn btn-gradient">⚡ Launch Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="pdot"></span>AI VOICE AGENTS THAT DRIVE REVENUE</div>
+        <h1 class="hero-title">Your Business Never Misses Another <span class="grad-text">Opportunity.</span></h1>
+        <p class="hero-sub">Human-like Agentic AI Voice Agents that answer calls, qualify leads, book appointments, send SMS follow-ups, update CRMs, recover missed revenue, and automate your business 24/7.</p>
+        <div class="hero-ctas">
+          <a href="#demo" class="btn btn-gradient">⚡ Launch Live Demo</a>
+          <a href="#demo" class="btn btn-ghost">📞 Call Our AI Now</a>
+        </div>
+        <div class="hero-features">
+          <div class="hero-feat"><span class="ck">✓</span> No credit card</div>
+          <div class="hero-feat"><span class="ck">✓</span> Live AI call</div>
+          <div class="hero-feat"><span class="ck">✓</span> English + Spanish</div>
+          <div class="hero-feat"><span class="ck">✓</span> Setup in minutes</div>
+        </div>
+      </div>
+      <div class="orus-core">
+        <div class="orus-rings">
+          <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        </div>
+        <div class="orus-face">
+          <div class="orus-emoji">🤖</div>
+          <div class="orus-label">
+            <div class="orus-name">ORUS</div>
+            <div class="orus-role">Core AI Operator</div>
+          </div>
+        </div>
+        <div class="orus-status-card">
+          <div class="s-name">ORUS</div>
+          <div class="s-role">Core AI Operator</div>
+          <div class="s-live">● Live Revenue Intelligence Online</div>
+        </div>
+      </div>
+    </div>
+    <!-- LIVE PERF STATS -->
+    <div class="stats-bar">
+      <div class="stat-card"><div class="stat-num grad-text">&lt; 0.8s</div><div class="stat-label">Avg Response Time</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--green);">92%</div><div class="stat-label">Lead Contact Rate</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--cyan);">3.4x</div><div class="stat-label">Booking Increase</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--purple);">24/7</div><div class="stat-label">Always Answering</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE SANDBOX -->
+<section class="section" id="demo">
+  <div class="container">
+    <div class="section-eyebrow">Live Voice Agent Sandbox</div>
+    <h2 class="section-title">Hear ORUS Work — In Real Time</h2>
+    <p class="section-sub">Select an industry. Watch the agent qualify, score, and convert a live caller. This is what closes the deal in your demo.</p>
+    <div class="industry-btns" id="indBtns">
+      <button class="ind-btn" data-ind="healthcare">🏥 Healthcare</button>
+      <button class="ind-btn" data-ind="realestate">🏠 Real Estate</button>
+      <button class="ind-btn active" data-ind="automotive">🚗 Automotive</button>
+      <button class="ind-btn" data-ind="legal">⚖️ Legal</button>
+      <button class="ind-btn" data-ind="financial">💰 Financial</button>
+      <button class="ind-btn" data-ind="home">🔧 Home Services</button>
+    </div>
+    <div class="sandbox-grid">
+      <div class="card">
+        <div style="text-align:center;margin-bottom:16px;">
+          <div class="wf-av" style="margin:0 auto 10px;" id="sbAvatar">🚗</div>
+          <div style="font-size:15px;font-weight:700;" id="sbAgent">AUTO DESK</div>
+          <div style="font-size:10px;color:var(--text2);letter-spacing:1px;" id="sbType">Automotive Agent</div>
+        </div>
+        <div class="waveform">
+          <div class="wbar" style="height:8px;animation-delay:0s;"></div><div class="wbar" style="height:16px;animation-delay:.1s;"></div>
+          <div class="wbar" style="height:24px;animation-delay:.2s;"></div><div class="wbar" style="height:28px;animation-delay:.3s;"></div>
+          <div class="wbar" style="height:18px;animation-delay:.4s;"></div><div class="wbar" style="height:24px;animation-delay:.3s;"></div>
+          <div class="wbar" style="height:14px;animation-delay:.2s;"></div><div class="wbar" style="height:8px;animation-delay:.1s;"></div>
+        </div>
+        <div class="mic-btn">🎙️</div>
+        <div style="text-align:center;font-size:10px;color:var(--text2);margin-top:10px;">Click to speak with ORUS</div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">Live Transcript</div>
+        <div class="transcript" id="transcript"></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;">AI Insights</div>
+        <div class="metric-row"><span class="ml">Sentiment</span><span class="mv" style="color:var(--green);" id="mSent">Positive</span></div>
+        <div class="metric-row"><span class="ml">Confidence</span><span class="mv" style="color:var(--green);" id="mConf">96%</span></div>
+        <div class="metric-row"><span class="ml">Intent</span><span class="mv" id="mIntent">Trade-In / Appt</span></div>
+        <div class="metric-row"><span class="ml">Status</span><span class="mv" style="color:var(--blue-light);" id="mStatus">Qualified Lead</span></div>
+        <div style="font-size:10px;color:var(--text2);letter-spacing:1px;margin:16px 0 10px;text-transform:uppercase;">CRM Actions</div>
+        <div id="crmActions"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRY CARDS -->
+<section class="section" id="industries">
+  <div class="container">
+    <div class="section-eyebrow">Industry Agents</div>
+    <h2 class="section-title">Specialized AI Agents, Built For Your Industry</h2>
+    <p class="section-sub">Every agent is trained for the conversations your business actually has.</p>
+    <div class="ind-grid">
+      <div class="card ind-card"><div class="ic">🏥</div><h3>Healthcare Agent</h3><p>Patient inquiries, appointment scheduling, intake routing, office FAQs, reminders.</p><span class="try">Try Demo →</span></div>
+      <div class="card ind-card"><div class="ic">🏠</div><h3>Real Estate Agent</h3><p>Property inquiries, buyer qualification, showing requests, seller lead capture.</p><span class="try">Try Demo →</span></div>
+      <div class="card ind-card"><div class="ic">🚗</div><h3>Automotive Agent</h3><p>Service booking, sales inquiries, trade-in intake, BDC follow-up, finance routing.</p><span class="try">Try Demo →</span></div>
+      <div class="card ind-card"><div class="ic">⚖️</div><h3>Legal Agent</h3><p>Case intake, consultation booking, practice-area routing, document collection.</p><span class="try">Try Demo →</span></div>
+      <div class="card ind-card"><div class="ic">💰</div><h3>Financial Services Agent</h3><p>Account inquiries, loan qualification, appointment routing, compliance-aware support.</p><span class="try">Try Demo →</span></div>
+      <div class="card ind-card"><div class="ic">🔧</div><h3>Home Services Agent</h3><p>Emergency calls, quote requests, technician dispatch, missed-call recovery.</p><span class="try">Try Demo →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTI-AGENT WORKFORCE -->
+<section class="section" id="agents">
+  <div class="container">
+    <div class="section-eyebrow">Multi-Agent Workforce</div>
+    <h2 class="section-title">MANOLOGICS Is Not One Bot. It's A Full AI Staff.</h2>
+    <p class="section-sub">Six elite AI operators working together to run your entire revenue layer.</p>
+    <div class="wf-grid">
+      <div class="card wf-card"><div class="wf-av">🐒</div><h3>MANO</h3><div class="wf-role">Executive Voice Operator</div><p>Answers calls, qualifies leads, handles customer conversations with human-like precision.</p></div>
+      <div class="card wf-card"><div class="wf-av">📅</div><h3>OPS BOOKER</h3><div class="wf-role">Scheduling + Dispatch</div><p>Books appointments, reschedules, checks calendars, routes urgent calls instantly.</p></div>
+      <div class="card wf-card"><div class="wf-av">💬</div><h3>SMS BOT</h3><div class="wf-role">Follow-Up Automation</div><p>Sends confirmations, reminders, review requests, no-show recovery, abandoned lead follow-ups.</p></div>
+      <div class="card wf-card"><div class="wf-av">📧</div><h3>EMAIL TRIAGE</h3><div class="wf-role">Inbox Intelligence</div><p>Classifies emails, drafts replies, flags urgent messages, routes opportunities.</p></div>
+      <div class="card wf-card"><div class="wf-av">📊</div><h3>REVENUE INTELLIGENCE</h3><div class="wf-role">Growth + Analytics</div><p>Scores leads, tracks conversion, finds missed revenue, calculates ROI in real time.</p></div>
+      <div class="card wf-card"><div class="wf-av">🚗</div><h3>AUTO DESK</h3><div class="wf-role">Automotive BDC</div><p>Trade-ins, service booking, finance prep, vehicle data intake, CRM pipeline updates.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW BUILDER -->
+<section class="section" id="workflow">
+  <div class="container">
+    <div class="section-eyebrow">Autonomous Workflow Builder</div>
+    <h2 class="section-title">Design Complex Voice Workflows. No Code.</h2>
+    <p class="section-sub">Click any node to inspect the live automation behind it.</p>
+    <div class="flow-panel">
+      <div class="flow-nodes" id="flowNodes">
+        <div class="flow-node active" data-node="Incoming Call">📞 Incoming Call</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="MANO Voice Agent">🤖 MANO Voice Agent</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="Lead Qualification">🎯 Lead Qualification</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="Appointment Booking">📅 Booking</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="CRM Update">📝 CRM Update</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="SMS Confirmation">💬 SMS Confirm</div>
+        <span class="flow-conn">→</span>
+        <div class="flow-node" data-node="Revenue Dashboard">💰 Revenue</div>
+      </div>
+      <div class="diag-panel">
+        <div class="diag-row"><span class="dl">Selected Node</span><span id="dgNode">Incoming Call</span></div>
+        <div class="diag-row"><span class="dl">Status</span><span style="color:var(--green);">● Active</span></div>
+        <div class="diag-row"><span class="dl">Latency</span><span id="dgLat" style="font-family:'Space Mono';">112ms</span></div>
+        <div class="diag-row"><span class="dl">Automation</span><span id="dgAuto">Twilio webhook received</span></div>
+        <div class="diag-row"><span class="dl">Owner Agent</span><span>MANO</span></div>
+      </div>
+      <div style="text-align:center;margin-top:24px;"><a href="#demo" class="btn btn-gradient">🛠️ Build Your AI Workforce</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE RECOVERY -->
+<section class="section" id="platform">
+  <div class="container">
+    <div class="section-eyebrow">Revenue Recovery</div>
+    <h2 class="section-title">Recover Revenue Your Team Never Even Saw.</h2>
+    <p class="section-sub">MANOLOGICS captures missed calls, abandoned leads, after-hours opportunities, voicemails, and follow-up gaps before competitors win the customer.</p>
+    <div class="counter-grid">
+      <div class="card counter-card"><div class="counter-num" data-count="2842">0</div><div class="counter-label">Missed Calls Recovered</div></div>
+      <div class="card counter-card"><div class="counter-num" data-count="642">0</div><div class="counter-label">Appointments Booked</div></div>
+      <div class="card counter-card"><div class="counter-num" data-count="124540" data-prefix="$">0</div><div class="counter-label">Revenue Recovered</div></div>
+      <div class="card counter-card"><div class="counter-num" data-count="08" data-suffix="s" data-decimal="1">0</div><div class="counter-label">Avg Response Time</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">ROI Calculator</div>
+    <h2 class="section-title">Calculate What You're Losing</h2>
+    <p class="section-sub">Move the sliders. Watch your recovered revenue update in real time.</p>
+    <div class="card">
+      <div class="roi-grid">
+        <div>
+          <div class="slider-group"><div class="slider-label"><span>Monthly Calls</span><span class="sv" id="v1">1,000</span></div><input type="range" id="s1" min="100" max="5000" step="50" value="1000"></div>
+          <div class="slider-group"><div class="slider-label"><span>Missed Call %</span><span class="sv" id="v2">20%</span></div><input type="range" id="s2" min="5" max="60" step="1" value="20"></div>
+          <div class="slider-group"><div class="slider-label"><span>Average Lead Value</span><span class="sv" id="v3">$500</span></div><input type="range" id="s3" min="100" max="5000" step="50" value="500"></div>
+          <div class="slider-group"><div class="slider-label"><span>Booking Rate %</span><span class="sv" id="v4">35%</span></div><input type="range" id="s4" min="10" max="80" step="1" value="35"></div>
+          <div class="slider-group"><div class="slider-label"><span>Employees Handling Calls</span><span class="sv" id="v5">5</span></div><input type="range" id="s5" min="1" max="20" step="1" value="5"></div>
+        </div>
+        <div>
+          <svg class="roi-chart" id="roiChart" viewBox="0 0 400 160" style="width:100%;height:160px;">
+            <defs><linearGradient id="chartGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient>
+            <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(37,99,235,0.3)"/><stop offset="100%" stop-color="rgba(37,99,235,0)"/></linearGradient></defs>
+            <path id="chartFill" fill="url(#fillGrad)"/>
+            <path id="chartLine" fill="none" stroke="url(#chartGrad)" stroke-width="2.5"/>
+          </svg>
+          <div class="roi-outputs">
+            <div class="roi-out"><div class="roi-out-label">Revenue Recovered</div><div class="roi-out-val" style="color:var(--green);" id="o1">$0</div></div>
+            <div class="roi-out"><div class="roi-out-label">Labor Saved / Yr</div><div class="roi-out-val" style="color:var(--cyan);" id="o2">$0</div></div>
+            <div class="roi-out"><div class="roi-out-label">Appts Booked / Mo</div><div class="roi-out-val" style="color:var(--blue-light);" id="o3">0</div></div>
+            <div class="roi-out"><div class="roi-out-label">Annual ROI</div><div class="roi-out-val" style="color:var(--purple);" id="o4">$0</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="section" id="dashboard">
+  <div class="container">
+    <div class="section-eyebrow">Enterprise Dashboard</div>
+    <h2 class="section-title">Powerful Dashboard. Real Results.</h2>
+    <p class="section-sub">The command center that runs your entire revenue operation.</p>
+    <div class="dash-preview">
+      <div class="dash-side">
+        <div class="dash-nav active">⚡ Overview</div>
+        <div class="dash-nav">🤖 Agents</div>
+        <div class="dash-nav">💬 Conversations</div>
+        <div class="dash-nav">📣 Campaigns</div>
+        <div class="dash-nav">🧠 Knowledge Base</div>
+        <div class="dash-nav">🔗 Integrations</div>
+        <div class="dash-nav">📊 Analytics</div>
+        <div class="dash-nav">💳 Billing</div>
+      </div>
+      <div class="dash-main">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">🌍 Live Calls Around The World</div>
+            <div class="dash-map" id="dashMap"></div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">💰 Revenue Overview</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div class="roi-out"><div class="roi-out-label">Generated</div><div class="roi-out-val" style="font-size:18px;color:var(--green);">$124K</div></div>
+              <div class="roi-out"><div class="roi-out-label">Booked</div><div class="roi-out-val" style="font-size:18px;color:var(--blue-light);">642</div></div>
+              <div class="roi-out"><div class="roi-out-label">Answered</div><div class="roi-out-val" style="font-size:18px;color:var(--cyan);">2,842</div></div>
+              <div class="roi-out"><div class="roi-out-label">Recovered</div><div class="roi-out-val" style="font-size:18px;color:var(--purple);">$88K</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Active AI Agents</div>
+        <table class="dash-tbl">
+          <thead><tr><th>Agent</th><th>Status</th><th>Calls</th><th>Bookings</th><th>Success</th><th>Rating</th></tr></thead>
+          <tbody>
+            <tr><td>Alex — Healthcare</td><td style="color:var(--green);">● Online</td><td>412</td><td>189</td><td>94%</td><td>⭐ 4.9</td></tr>
+            <tr><td>Sophia — Real Estate</td><td style="color:var(--green);">● Online</td><td>338</td><td>142</td><td>91%</td><td>⭐ 4.8</td></tr>
+            <tr><td>Mark — Automotive</td><td style="color:var(--green);">● Online</td><td>521</td><td>203</td><td>96%</td><td>⭐ 5.0</td></tr>
+            <tr><td>Luna — Legal Intake</td><td style="color:var(--amber);">● Busy</td><td>287</td><td>98</td><td>89%</td><td>⭐ 4.7</td></tr>
+            <tr><td>MANO — Core Operator</td><td style="color:var(--green);">● Online</td><td>847</td><td>362</td><td>96%</td><td>⭐ 5.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMOTIVE BDC -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Automotive BDC Automation</div>
+    <h2 class="section-title">The AI BDC That Never Sleeps.</h2>
+    <p class="section-sub">Inbound calls, service requests, trade-in leads, finance pre-qualification, booking, review follow-ups, and CRM updates — without a human touching the first step.</p>
+    <div class="ind-grid">
+      <div class="card ind-card"><div class="ic">📅</div><h3>Service Booking</h3></div>
+      <div class="card ind-card"><div class="ic">🔄</div><h3>Trade-In Intake</h3></div>
+      <div class="card ind-card"><div class="ic">🚙</div><h3>Vehicle Inquiry</h3></div>
+      <div class="card ind-card"><div class="ic">📞</div><h3>Missed Call Recovery</h3></div>
+      <div class="card ind-card"><div class="ic">💳</div><h3>Finance Pre-Screening</h3></div>
+      <div class="card ind-card"><div class="ic">⭐</div><h3>Review Requests</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- BILINGUAL -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Bilingual Voice Layer</div>
+    <h2 class="section-title">Built For The Real Market. English + Spanish.</h2>
+    <p class="section-sub">MANOLOGICS detects language, switches naturally, and keeps CRM notes structured across every conversation.</p>
+    <div class="bil-grid">
+      <div class="card">
+        <div style="font-size:11px;color:var(--blue-light);letter-spacing:1px;margin-bottom:14px;">🇺🇸 ENGLISH</div>
+        <div class="t-msg"><div class="t-who cust">Customer</div><div class="t-bubble cust">I need to schedule service for my truck.</div></div>
+        <div class="t-msg"><div class="t-who ai">MANO</div><div class="t-bubble ai">Absolutely. I can help with that. What year, make, and model is your truck?</div></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;color:var(--cyan);letter-spacing:1px;margin-bottom:14px;">🇲🇽 ESPAÑOL</div>
+        <div class="t-msg"><div class="t-who cust">Cliente</div><div class="t-bubble cust">Necesito hacer una cita para servicio.</div></div>
+        <div class="t-msg"><div class="t-who ai">MANO</div><div class="t-bubble ai">Claro que sí. Le puedo ayudar. ¿Cuál es el año, marca y modelo de su vehículo?</div></div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">English</span><span class="badge">Spanish</span><span class="badge">Auto Language Detection</span><span class="badge">Native Voice Routing</span><span class="badge">Translated CRM Notes</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Integrations</div>
+    <h2 class="section-title">Built To Plug Into The Systems You Already Run.</h2>
+    <p class="section-sub">Voice, SMS, email, CRM, calendars, reviews, and automations into one autonomous revenue layer.</p>
+    <div class="int-grid">
+      <div class="int-card"><div class="int-icon">📞</div><div class="int-name">Twilio</div></div>
+      <div class="int-card"><div class="int-icon">🎙️</div><div class="int-name">Vapi</div></div>
+      <div class="int-card"><div class="int-icon">🔊</div><div class="int-name">ElevenLabs</div></div>
+      <div class="int-card"><div class="int-icon">📅</div><div class="int-name">Google Calendar</div></div>
+      <div class="int-card"><div class="int-icon">📧</div><div class="int-name">Gmail</div></div>
+      <div class="int-card"><div class="int-icon">🏢</div><div class="int-name">Google Business</div></div>
+      <div class="int-card"><div class="int-icon">🟠</div><div class="int-name">HubSpot</div></div>
+      <div class="int-card"><div class="int-icon">☁️</div><div class="int-name">Salesforce</div></div>
+      <div class="int-card"><div class="int-icon">🔧</div><div class="int-name">ServiceTitan</div></div>
+      <div class="int-card"><div class="int-icon">📈</div><div class="int-name">GoHighLevel</div></div>
+      <div class="int-card"><div class="int-icon">💳</div><div class="int-name">Stripe</div></div>
+      <div class="int-card"><div class="int-icon">⚡</div><div class="int-name">Zapier</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-eyebrow">Pricing</div>
+    <h2 class="section-title">Built For Every Operator</h2>
+    <p class="section-sub">From solo operators to multi-location enterprises.</p>
+    <div class="price-grid">
+      <div class="card price-card"><div class="price-tier">Solo Agent</div><div class="price-desc">1-2 truck operators</div><div class="price-amount">$297<span style="font-size:14px;color:var(--text2);">/mo</span></div><div class="price-sub">$997 setup</div><a href="#demo" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a></div>
+      <div class="card price-card"><div class="price-tier">Duo Squad</div><div class="price-desc">3-8 trucks</div><div class="price-amount">$594<span style="font-size:14px;color:var(--text2);">/mo</span></div><div class="price-sub">$1,497 setup</div><a href="#demo" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a></div>
+      <div class="card price-card featured"><div class="price-badge">MOST POPULAR</div><div class="price-tier">Super Monkee</div><div class="price-desc">Full 5-agent system</div><div class="price-amount">$1,485<span style="font-size:14px;color:var(--text2);">/mo</span></div><div class="price-sub">$4,997 setup</div><a href="#demo" class="btn btn-gradient" style="width:100%;justify-content:center;">Get Started</a></div>
+      <div class="card price-card"><div class="price-tier">Enterprise</div><div class="price-desc">Multi-location</div><div class="price-amount">$3,500<span style="font-size:14px;color:var(--text2);">/mo</span></div><div class="price-sub">$9,997 setup</div><a href="#demo" class="btn btn-ghost" style="width:100%;justify-content:center;">Contact Us</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">MANOLOGICS vs. The Competition</h2>
+    <p class="section-sub">Why operators switch and never look back.</p>
+    <table class="comp-tbl">
+      <thead><tr><th>Feature</th><th class="comp-mano">MANOLOGICS</th><th>Competitors</th></tr></thead>
+      <tbody>
+        <tr><td>Answers calls live</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>Sub-second text-back</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>AI lead scoring</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>Autonomous booking</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>English + Spanish</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>Multi-agent workforce</td><td class="comp-mano"><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+        <tr><td>Setup time</td><td class="comp-mano">Minutes</td><td>Weeks</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SHARK TANK CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="orus-core" style="height:160px;margin-bottom:10px;">
+      <div class="orus-rings" style="width:200px;height:200px;"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+      <div style="font-size:50px;filter:drop-shadow(0 0 30px rgba(96,165,250,0.7));z-index:2;">🤖</div>
+    </div>
+    <h2>The Future Of Business Communication Is <span class="grad-text">Autonomous.</span></h2>
+    <p>Answer every call. Recover every lead. Automate every workflow. Grow every business.</p>
+    <div class="cta-btns">
+      <a href="#demo" class="btn btn-gradient" style="padding:14px 28px;font-size:15px;">⚡ Launch Demo</a>
+      <a href="#" class="btn btn-ghost" style="padding:14px 28px;font-size:15px;">📅 Book Enterprise Walkthrough</a>
+    </div>
+    <div style="font-size:12px;color:var(--text3);margin-top:24px;">Built in Scottsdale, Arizona. 🌵</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:14px;"><div class="logo-m">M</div><div class="logo-text">MANOLOGICS</div></div>
+        <p style="font-size:13px;color:var(--text2);max-width:240px;">Autonomous Revenue Infrastructure. Human-like AI voice agents that never miss an opportunity.</p>
+      </div>
+      <div class="footer-col"><h4>Platform</h4><a href="#agents">Voice Agents</a><a href="#agents">Multi-Agent Workforce</a><a href="#platform">Revenue Intelligence</a><a href="#workflow">Workflow Automation</a></div>
+      <div class="footer-col"><h4>Industries</h4><a href="#industries">Automotive</a><a href="#industries">Healthcare</a><a href="#industries">Real Estate</a><a href="#industries">Legal</a><a href="#industries">Home Services</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Careers</a><a href="#">Investors</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="#demo">Demo</a><a href="#">Docs</a><a href="#">Case Studies</a><a href="#">Security</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 MANOLOGICS · Monkee Biz AI · Autonomous Revenue Infrastructure · Built by Tex Taylor</div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+// CURSOR AURA
+const aura=document.getElementById('cursor-aura');
+document.addEventListener('mousemove',e=>{aura.style.left=e.clientX+'px';aura.style.top=e.clientY+'px';});
+
+// PARTICLES
+const pc=document.getElementById('particles');
+for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.bottom='-10px';p.style.animationDuration=(8+Math.random()*12)+'s';p.style.animationDelay=Math.random()*10+'s';pc.appendChild(p);}
+
+// SANDBOX DATA
+const SB={
+  healthcare:{agent:'CARE DESK',type:'Healthcare Agent',avatar:'🏥',intent:'Appointment Booking',convo:[['cust','Hi, I need to book a follow-up with Dr. Lee.'],['ai','Of course. I can help you schedule that. May I have your name and date of birth to pull up your record?'],['cust','Sarah Miller, March 3rd 1985.'],['ai','Thank you, Sarah. Dr. Lee has openings Thursday at 10 AM or Friday at 2 PM. Which works best?']],crm:['Patient verified','Appointment slot held','Insurance check queued','Reminder SMS scheduled']},
+  realestate:{agent:'ESTATE DESK',type:'Real Estate Agent',avatar:'🏠',intent:'Buyer Qualification',convo:[['cust','I saw a listing on Camelback I want to check out.'],['ai','Great choice! That property is $625K, 4 bed 3 bath. Are you pre-approved, and what\\'s your timeline to buy?'],['cust','Pre-approved up to $700K, looking to move in 60 days.'],['ai','Perfect — you\\'re a strong fit. I can schedule a private showing this weekend. Saturday morning work?']],crm:['Buyer qualified','Pre-approval confirmed','Showing requested','Agent notified']},
+  automotive:{agent:'AUTO DESK',type:'Automotive Agent',avatar:'🚗',intent:'Trade-In / Appt',convo:[['ai','Thanks for calling. Are you looking to schedule service, ask about a vehicle, or get trade-in information?'],['cust','I\\'m interested in trading my car and checking payment options.'],['ai','Absolutely. What year, make, model, mileage, and condition is your vehicle?'],['cust','2019 Tahoe, 62k miles, excellent shape.'],['ai','Great — that has strong trade value. I can get you a quote and finance options. When can you come in?']],crm:['Lead captured','Vehicle intake started','Trade-in workflow opened','BDC follow-up queued','Appointment ready']},
+  legal:{agent:'LEGAL DESK',type:'Legal Intake Agent',avatar:'⚖️',intent:'Case Intake',convo:[['cust','I was in a car accident last week and need a lawyer.'],['ai','I\\'m sorry to hear that. I can help you start your case. Were you injured, and was a police report filed?'],['cust','Yes, minor injuries, report was filed.'],['ai','Understood. This sounds like a strong case. I\\'ll schedule a free consultation with our PI attorney. Tomorrow at 11 AM?']],crm:['Case intake started','Practice area: Personal Injury','Consultation booked','Documents requested']},
+  financial:{agent:'FINANCE DESK',type:'Financial Services Agent',avatar:'💰',intent:'Loan Qualification',convo:[['cust','I want to apply for a small business loan.'],['ai','Happy to help. What\\'s your business revenue and how much funding are you seeking?'],['cust','About $40k a month, need $150k.'],['ai','You may qualify for several options. I\\'ll route you to a loan specialist and pre-screen your application. Can I confirm your email?']],crm:['Lead captured','Loan inquiry logged','Pre-screen started','Specialist routed']},
+  home:{agent:'HOME DESK',type:'Home Services Agent',avatar:'🔧',intent:'Emergency Repair',convo:[['cust','My AC died and it\\'s 108 degrees out here.'],['ai','That\\'s an emergency — I\\'ll get you handled fast. What\\'s your address so I can check our nearest tech?'],['cust','4521 West Camelback, Phoenix.'],['ai','I have a tech available at 1:30 PM today. Booking you now — you\\'ll get a confirmation text in 60 seconds.']],crm:['Lead captured','HOT flag set','Tech dispatched','Confirmation SMS queued']}
+};
+function loadInd(k){
+  const d=SB[k];
+  document.getElementById('sbAgent').textContent=d.agent;
+  document.getElementById('sbType').textContent=d.type;
+  document.getElementById('sbAvatar').textContent=d.avatar;
+  document.getElementById('mIntent').textContent=d.intent;
+  const t=document.getElementById('transcript');t.innerHTML='';
+  d.convo.forEach(m=>{t.innerHTML+=`<div class="t-msg"><div class="t-who ${m[0]}">${m[0]==='ai'?d.agent:'Caller'}</div><div class="t-bubble ${m[0]}">${m[1]}</div></div>`;});
+  const c=document.getElementById('crmActions');c.innerHTML='';
+  d.crm.forEach(a=>{c.innerHTML+=`<div class="chk-item"><div class="chk">✓</div>${a}</div>`;});
+}
+document.querySelectorAll('.ind-btn').forEach(b=>{b.addEventListener('click',function(){document.querySelectorAll('.ind-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active');loadInd(this.dataset.ind);});});
+loadInd('automotive');
+
+// WORKFLOW NODES
+const NODES={'Incoming Call':['112ms','Twilio webhook received'],'MANO Voice Agent':['340ms','Gemini 2.5 Flash engaged'],'Lead Qualification':['210ms','Intent scored, HOT detected'],'Appointment Booking':['184ms','Calendly slot reserved'],'CRM Update':['96ms','Pipeline record created'],'SMS Confirmation':['128ms','Twilio SMS dispatched'],'Revenue Dashboard':['74ms','Metrics updated live']};
+document.querySelectorAll('.flow-node').forEach(n=>{n.addEventListener('click',function(){document.querySelectorAll('.flow-node').forEach(x=>x.classList.remove('active'));this.classList.add('active');const k=this.dataset.node;document.getElementById('dgNode').textContent=k;document.getElementById('dgLat').textContent=NODES[k][0];document.getElementById('dgAuto').textContent=NODES[k][1];});});
+
+// ROI
+function fmt(v){return v>=1000?'$'+Math.round(v).toLocaleString():'$'+Math.round(v);}
+function roi(){
+  const calls=+s1.value,miss=+s2.value,val=+s3.value,book=+s4.value,emp=+s5.value;
+  document.getElementById('v1').textContent=calls.toLocaleString();
+  document.getElementById('v2').textContent=miss+'%';
+  document.getElementById('v3').textContent='$'+val;
+  document.getElementById('v4').textContent=book+'%';
+  document.getElementById('v5').textContent=emp;
+  const missed=calls*(miss/100);
+  const recovered=missed*0.85*(book/100)*val;
+  const labor=emp*3200;
+  const appts=Math.round(missed*0.85*(book/100));
+  const annual=recovered*12;
+  document.getElementById('o1').textContent=fmt(recovered);
+  document.getElementById('o2').textContent=fmt(labor);
+  document.getElementById('o3').textContent=appts;
+  document.getElementById('o4').textContent=fmt(annual);
+  drawChart(recovered);
+}
+function drawChart(peak){
+  const pts=[];for(let i=0;i<=8;i++){const x=i*50;const growth=Math.pow(i/8,1.6);const y=150-(growth*130);pts.push([x,y]);}
+  let line='M'+pts.map(p=>p[0]+','+p[1]).join(' L');
+  let fill=line+` L400,160 L0,160 Z`;
+  document.getElementById('chartLine').setAttribute('d',line);
+  document.getElementById('chartFill').setAttribute('d',fill);
+}
+['s1','s2','s3','s4','s5'].forEach(id=>{const el=document.getElementById(id);window[id]=el;el.addEventListener('input',roi);});
+roi();
+
+// COUNTERS
+function animateCounters(){
+  document.querySelectorAll('.counter-num').forEach(el=>{
+    const target=+el.dataset.count;const pre=el.dataset.prefix||'';const suf=el.dataset.suffix||'';const dec=el.dataset.decimal;
+    let cur=0;const step=target/60;
+    const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv);}
+      let disp=dec?(cur/10).toFixed(1):Math.round(cur).toLocaleString();
+      el.textContent=pre+disp+suf;},20);
+  });
+}
+const obs=new IntersectionObserver((e)=>{e.forEach(en=>{if(en.isIntersecting){animateCounters();obs.disconnect();}});},{threshold:0.3});
+obs.observe(document.querySelector('.counter-grid'));
+
+// DASH MAP MARKERS
+const cities=[[15,40],[25,55],[40,70],[55,35],[20,75],[58,30],[72,50],[88,80]];
+const map=document.getElementById('dashMap');
+cities.forEach((c,i)=>{const m=document.createElement('div');m.className='map-marker';m.style.left=c[0]+'%';m.style.top=c[1]+'%';m.style.animationDelay=(i*0.3)+'s';map.appendChild(m);});
+</script>
+</body>
+</html>
