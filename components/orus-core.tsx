@@ -21,15 +21,17 @@ export function OrusCore({
       aria-label="ORUS holographic AI core"
     >
       {/* radial glow */}
-      <div
+      <motion.div
         className="absolute rounded-full"
         aria-hidden
+        animate={{ opacity: [0.65, 1, 0.65], scale: [1, 1.05, 1] }}
+        transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
         style={{
-          width: size * 0.9,
-          height: size * 0.9,
+          width: size,
+          height: size,
           background:
-            "radial-gradient(circle, rgba(37,99,235,0.18), rgba(139,92,246,0.08) 45%, transparent 70%)",
-          filter: "blur(8px)",
+            "radial-gradient(circle, rgba(37,99,235,0.26), rgba(139,92,246,0.12) 42%, transparent 70%)",
+          filter: "blur(10px)",
         }}
       />
 
@@ -74,6 +76,40 @@ export function OrusCore({
         ))}
       </div>
 
+      {/* orbital audio-reactive waveform ring */}
+      <div
+        className="absolute"
+        style={{ width: faceSize * 1.42, height: faceSize * 1.42 }}
+        aria-hidden
+      >
+        {Array.from({ length: 48 }).map((_, i) => {
+          const angle = (i / 48) * 360
+          const h = 6 + ((i * 7) % 13)
+          return (
+            <span
+              key={i}
+              className="absolute left-1/2 top-1/2"
+              style={{
+                transform: `rotate(${angle}deg) translateY(-${faceSize * 0.62}px)`,
+                transformOrigin: "center top",
+              }}
+            >
+              <span
+                className="block"
+                style={{
+                  width: 2,
+                  height: h,
+                  borderRadius: 2,
+                  background: "linear-gradient(to top, rgba(37,99,235,0.1), rgba(6,182,212,0.85))",
+                  transformOrigin: "center top",
+                  animation: `wave ${1 + (i % 5) * 0.12}s ease-in-out ${i * 0.03}s infinite`,
+                }}
+              />
+            </span>
+          )
+        })}
+      </div>
+
       {/* face */}
       <motion.div
         className="relative flex flex-col items-center justify-center overflow-hidden rounded-full border"
@@ -96,6 +132,18 @@ export function OrusCore({
             background:
               "repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(96,165,250,0.06) 7px, transparent 8px)",
             animation: "scan 4s linear infinite",
+          }}
+        />
+
+        {/* radar sweep beam */}
+        <div
+          className="pointer-events-none absolute inset-0 rounded-full"
+          aria-hidden
+          style={{
+            background:
+              "conic-gradient(from 0deg, rgba(96,165,250,0.22), transparent 55deg, transparent 360deg)",
+            animation: "spin 6s linear infinite",
+            mixBlendMode: "screen",
           }}
         />
 

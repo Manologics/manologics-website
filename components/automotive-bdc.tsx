@@ -81,7 +81,7 @@ export function AutomotiveBdc() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="glass rounded-2xl p-5 text-center"
+            className="glass glass-hover rounded-2xl p-5 text-center"
           >
             <div className="font-display text-2xl font-extrabold grad-text">
               <AnimatedCounter value={m.value} prefix={m.prefix} />

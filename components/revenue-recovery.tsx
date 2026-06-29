@@ -70,7 +70,7 @@ export function RevenueRecovery() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="glass rounded-2xl p-5"
+              className="glass glass-hover rounded-2xl p-5"
             >
               <div className="font-display text-2xl font-extrabold text-foreground sm:text-3xl">
                 <AnimatedCounter

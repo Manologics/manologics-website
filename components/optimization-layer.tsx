@@ -40,7 +40,7 @@ export function OptimizationLayer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: i * 0.06 }}
-                className="glass rounded-2xl p-6"
+                className="glass glass-hover rounded-2xl p-6"
               >
                 <span
                   className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl"

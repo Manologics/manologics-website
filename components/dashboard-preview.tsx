@@ -1,8 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { LayoutDashboard, Circle, RefreshCw, Database } from "lucide-react"
+import {
+  LayoutDashboard,
+  Circle,
+  RefreshCw,
+  Database,
+  PhoneCall,
+  DollarSign,
+  CalendarCheck,
+  Brain,
+  Smile,
+  Gauge,
+} from "lucide-react"
 import { SectionHeading } from "./section-heading"
 import { WorldMap } from "./world-map"
 import { DASH_NAV, DASH_AGENTS, KNOWLEDGE_SOURCES } from "@/lib/data"
@@ -11,6 +22,48 @@ const STATUS_COLOR: Record<string, string> = {
   Online: "var(--color-green)",
   Busy: "var(--color-amber)",
   Training: "var(--color-blue-light)",
+}
+
+const KPI_DEFS = [
+  { key: "calls", icon: PhoneCall, label: "Live Calls", base: 47, fmt: (v: number) => `${v}`, color: "#60a5fa" },
+  { key: "rev", icon: DollarSign, label: "Revenue Today", base: 48290, fmt: (v: number) => `$${(v / 1000).toFixed(1)}k`, color: "#22c55e" },
+  { key: "appt", icon: CalendarCheck, label: "Appointments", base: 134, fmt: (v: number) => `${v}`, color: "#06b6d4" },
+  { key: "ai", icon: Brain, label: "AI Decisions", base: 8421, fmt: (v: number) => v.toLocaleString(), color: "#8b5cf6" },
+  { key: "sent", icon: Smile, label: "Sentiment", base: 94, fmt: (v: number) => `${v}%`, color: "#22c55e" },
+  { key: "util", icon: Gauge, label: "Utilization", base: 88, fmt: (v: number) => `${v}%`, color: "#f59e0b" },
+]
+
+function DashboardKpis() {
+  const [tick, setTick] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), 2600)
+    return () => clearInterval(id)
+  }, [])
+  return (
+    <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {KPI_DEFS.map((k, i) => {
+        const Icon = k.icon
+        // small deterministic-ish fluctuation around base for live feel
+        const drift = Math.round(Math.sin(tick + i) * (k.base > 1000 ? k.base * 0.004 : 2))
+        const val = Math.max(0, k.base + drift)
+        return (
+          <div
+            key={k.key}
+            className="rounded-xl border border-border2 bg-bg2/40 p-3.5 transition-colors hover:border-[rgba(96,165,250,0.32)]"
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <Icon className="h-3.5 w-3.5" style={{ color: k.color }} />
+              <span className="h-1 w-1 rounded-full bg-green dot-pulse" />
+            </div>
+            <div className="font-mono text-lg font-extrabold leading-none text-foreground tabular-nums">
+              {k.fmt(val)}
+            </div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-faint">{k.label}</div>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 export function DashboardPreview() {
@@ -67,6 +120,7 @@ export function DashboardPreview() {
 
           {/* main */}
           <div className="p-5 sm:p-6">
+            <DashboardKpis />
             <WorldMap />
 
             {/* agents table */}
