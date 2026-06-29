@@ -10,7 +10,7 @@ const BARS = [38, 52, 44, 67, 58, 81, 73, 92, 86, 100, 94, 112]
 
 export function RevenueRecovery() {
   return (
-    <section id="revenue" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="revenue" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Revenue Intelligence"
         title={

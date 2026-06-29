@@ -6,7 +6,7 @@ import { MANO_RESPONSIBILITIES } from "@/lib/data"
 
 export function ManoCore() {
   return (
-    <section id="platform" className="relative py-20">
+    <section id="platform" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="MANO Core AI"

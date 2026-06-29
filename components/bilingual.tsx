@@ -37,7 +37,7 @@ export function Bilingual() {
   const active = SCRIPT[lang]
 
   return (
-    <section id="bilingual" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="bilingual" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Bilingual Voice AI"
         title={
@@ -81,11 +81,11 @@ export function Bilingual() {
 
           <div className="mt-5 flex items-center gap-3 rounded-xl border border-border2 bg-bg2/40 p-4">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgba(6,182,212,0.14)]">
-              <Volume2 className="h-4.5 w-4.5 text-cyan" />
+              <Volume2 className="h-5 w-5 text-cyan" />
             </span>
             <div>
               <p className="text-sm font-semibold text-foreground">Natural neural voices</p>
-              <p className="text-xs text-muted">Powered by ElevenLabs &amp; Retell — indistinguishable from human</p>
+              <p className="text-xs text-muted">Studio-grade ORUS neural TTS — indistinguishable from human</p>
             </div>
           </div>
         </motion.div>

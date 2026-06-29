@@ -13,7 +13,7 @@ const statusColor: Record<string, string> = {
 
 export function Workforce() {
   return (
-    <section id="agents" className="relative py-20">
+    <section id="agents" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Multi-Agent Workforce"

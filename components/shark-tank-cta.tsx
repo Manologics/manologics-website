@@ -5,7 +5,7 @@ import { Sparkles, ArrowRight, PhoneCall } from "lucide-react"
 
 export function SharkTankCta() {
   return (
-    <section className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="contact" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export function SharkTankCta() {
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href="#footer"
+              href="#demo"
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue to-purple px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] sm:w-auto"
             >
               Book a live demo

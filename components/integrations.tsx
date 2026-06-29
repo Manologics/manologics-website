@@ -6,7 +6,7 @@ import { INTEGRATIONS } from "@/lib/data"
 
 export function Integrations() {
   return (
-    <section id="integrations" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="integrations" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Integrations"
         title={

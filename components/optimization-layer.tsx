@@ -7,7 +7,7 @@ import { SERVICETITAN_POINTS } from "@/lib/data"
 
 export function OptimizationLayer() {
   return (
-    <section className="relative py-20">
+    <section className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="The AI Revenue Optimization Layer"

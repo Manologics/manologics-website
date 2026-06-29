@@ -50,7 +50,7 @@ export function SiteNav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href="#dashboard"
             className="rounded-[10px] border px-4 py-2 text-[13px] font-semibold text-muted transition-colors hover:text-foreground"
@@ -74,7 +74,7 @@ export function SiteNav() {
           type="button"
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border text-foreground md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-lg border text-foreground lg:hidden"
           style={{ borderColor: "rgba(96,165,250,0.22)" }}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -83,7 +83,7 @@ export function SiteNav() {
 
       {open && (
         <div
-          className="border-t px-6 py-4 md:hidden"
+          className="border-t px-6 py-4 lg:hidden"
           style={{ borderColor: "rgba(96,165,250,0.12)", background: "rgba(5,7,13,0.95)" }}
         >
           <div className="flex flex-col gap-3">
@@ -98,9 +98,17 @@ export function SiteNav() {
               </a>
             ))}
             <a
+              href="#dashboard"
+              onClick={() => setOpen(false)}
+              className="mt-1 rounded-[10px] border px-4 py-2.5 text-center text-sm font-semibold text-muted transition-colors hover:text-foreground"
+              style={{ borderColor: "rgba(96,165,250,0.22)" }}
+            >
+              Login
+            </a>
+            <a
               href="#demo"
               onClick={() => setOpen(false)}
-              className="mt-2 flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white"
+              className="flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white"
               style={{ background: "linear-gradient(135deg, #2563eb, #8b5cf6)" }}
             >
               <Zap className="h-4 w-4" /> Launch Demo

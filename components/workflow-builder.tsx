@@ -11,7 +11,7 @@ export function WorkflowBuilder() {
   const active = FLOW_NODES.find((n) => n.id === activeId)!
 
   return (
-    <section id="workflow" className="relative py-20">
+    <section id="workflow" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Autonomous Workflow Builder"

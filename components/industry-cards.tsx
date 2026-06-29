@@ -7,7 +7,7 @@ import { INDUSTRY_CARDS } from "@/lib/data"
 
 export function IndustryCards() {
   return (
-    <section id="industries" className="relative py-20">
+    <section id="industries" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Industry Agents"

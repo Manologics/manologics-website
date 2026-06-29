@@ -22,7 +22,7 @@ export function TalkPanel() {
   const lastExchange = data.convo.slice(-2)
 
   return (
-    <section id="talk" className="relative py-20">
+    <section id="talk" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Talk With Our AI Agent"

@@ -8,7 +8,7 @@ import { BDC_FEATURES, BDC_FLOW, BDC_METRICS } from "@/lib/data"
 
 export function AutomotiveBdc() {
   return (
-    <section id="automotive" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="automotive" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Automotive BDC"
         title={
@@ -34,7 +34,7 @@ export function AutomotiveBdc() {
               className="glass flex items-center gap-3 rounded-xl p-4"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(37,99,235,0.14)]">
-                <Icon className="h-4.5 w-4.5 text-blue-light" />
+                <Icon className="h-5 w-5 text-blue-light" />
               </span>
               <span className="text-sm font-medium leading-tight text-foreground">{f.title}</span>
             </motion.div>

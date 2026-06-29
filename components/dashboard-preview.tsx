@@ -17,7 +17,7 @@ export function DashboardPreview() {
   const [navActive, setNavActive] = useState("Overview")
 
   return (
-    <section id="dashboard" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="dashboard" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Command Center"
         title={

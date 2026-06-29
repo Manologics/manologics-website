@@ -54,7 +54,7 @@ export function RoiCalculator() {
   ]
 
   return (
-    <section id="pricing" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28">
+    <section id="pricing" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="ROI Calculator"
         title={
@@ -180,7 +180,7 @@ export function RoiCalculator() {
           </div>
 
           <a
-            href="#footer"
+            href="#contact"
             className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue to-purple px-6 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
           >
             <Calculator className="h-4 w-4" />

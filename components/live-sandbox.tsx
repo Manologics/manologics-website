@@ -43,7 +43,7 @@ export function LiveSandbox() {
   const Icon = data.icon
 
   return (
-    <section id="demo" className="relative py-20">
+    <section id="demo" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Live Voice Agent Sandbox"
