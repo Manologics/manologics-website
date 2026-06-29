@@ -299,7 +299,7 @@ export const WORKFORCE: WorkforceAgent[] = [
   },
   {
     icon: Mail,
-    name: "EMAIL TRIAGE",
+    name: "EMAIL AI",
     role: "Inbox Intelligence",
     desc: "Classifies emails, drafts replies, flags urgent opportunities, and routes tasks.",
     sample: "Urgent lead flagged",
@@ -307,7 +307,7 @@ export const WORKFORCE: WorkforceAgent[] = [
   },
   {
     icon: BarChart3,
-    name: "REVENUE INTELLIGENCE",
+    name: "REVENUE AI",
     role: "Growth + Analytics",
     desc: "Scores leads, detects missed revenue, tracks conversion, and calculates ROI in real time.",
     sample: "$12.4K opportunity recovered",
