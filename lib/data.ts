@@ -599,9 +599,66 @@ export const NAV_LINKS = [
   { label: "Company", href: "#footer" },
 ]
 
-export const HERO_STATS = [
-  { value: "< 0.8s", label: "Avg Response Time", color: "grad" },
-  { value: "92%", label: "Lead Contact Rate", color: "#22c55e" },
-  { value: "3.4x", label: "Booking Increase", color: "#06b6d4" },
-  { value: "24/7", label: "Always Answering", color: "#8b5cf6" },
+export const RECOVERY_DIFFERENTIATORS: string[] = [
+  "Missed Calls",
+  "Lost Leads",
+  "Abandoned Calls",
+  "After-Hours Revenue",
+  "Weekend Revenue",
+  "Voicemails",
+  "Unscheduled Estimates",
+  "Forgotten Follow-Ups",
+  "Incomplete CRM Records",
+  "Customer Relationships",
+]
+
+export interface ServiceTitanPoint {
+  icon: LucideIcon
+  title: string
+  desc: string
+}
+
+export const SERVICETITAN_POINTS: ServiceTitanPoint[] = [
+  { icon: PhoneMissed, title: "Analyze Missed Opportunities", desc: "Detect every unanswered call, abandoned booking, and dropped lead the moment it happens." },
+  { icon: RefreshCw, title: "Recover Abandoned Callers", desc: "Automatically re-engage and follow up with callers who hung up or went to voicemail." },
+  { icon: Target, title: "Score Lead Quality", desc: "Qualify and rank every inbound opportunity so your team focuses on revenue-ready jobs." },
+  { icon: FileText, title: "Summarize & Update CRM", desc: "Generate call summaries and push clean records straight into ServiceTitan." },
+  { icon: Calendar, title: "Schedule Appointments", desc: "Book and dispatch jobs directly into your existing ServiceTitan calendar and workflows." },
+  { icon: BarChart3, title: "Executive Reporting", desc: "Surface recovered revenue, conversion, and performance analytics for leadership." },
+]
+
+export interface ManoResponsibility {
+  icon: LucideIcon
+  label: string
+}
+
+export const MANO_RESPONSIBILITIES: ManoResponsibility[] = [
+  { icon: Phone, label: "Answer Calls" },
+  { icon: Calendar, label: "Book Appointments" },
+  { icon: Target, label: "Qualify Leads" },
+  { icon: PhoneMissed, label: "Recover Missed Calls" },
+  { icon: RefreshCw, label: "Recover Abandoned Calls" },
+  { icon: Mic, label: "Recover Voicemails" },
+  { icon: FileText, label: "Generate CRM Notes" },
+  { icon: MessageSquare, label: "Send SMS" },
+  { icon: Bell, label: "Notify Dispatch" },
+  { icon: Zap, label: "Route Emergencies" },
+  { icon: UserCheck, label: "Escalate To Humans" },
+  { icon: BarChart3, label: "Produce Analytics" },
+]
+
+export interface HeroStat {
+  value: number
+  prefix?: string
+  suffix?: string
+  decimals?: number
+  label: string
+  color: string
+}
+
+export const HERO_STATS: HeroStat[] = [
+  { value: 4218, label: "Calls Today", color: "grad" },
+  { value: 482900, prefix: "$", label: "Revenue Generated", color: "#22c55e" },
+  { value: 1342, label: "Appointments Booked", color: "#06b6d4" },
+  { value: 0.8, suffix: "s", decimals: 1, label: "Response Time", color: "#8b5cf6" },
 ]

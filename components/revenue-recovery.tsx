@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { TrendingUp, ArrowUpRight } from "lucide-react"
+import { TrendingUp, ArrowUpRight, RotateCcw } from "lucide-react"
 import { SectionHeading } from "./section-heading"
 import { AnimatedCounter } from "./animated-counter"
-import { RECOVERY_METRICS } from "@/lib/data"
+import { RECOVERY_METRICS, RECOVERY_DIFFERENTIATORS } from "@/lib/data"
 
 const BARS = [38, 52, 44, 67, 58, 81, 73, 92, 86, 100, 94, 112]
 
@@ -20,6 +20,39 @@ export function RevenueRecovery() {
         }
         sub="Every missed call is a missed customer. ORUS answers, qualifies, books, and follows up — turning lost calls into booked revenue, tracked live."
       />
+
+      {/* core market position */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6 }}
+        className="glass mb-8 rounded-3xl p-7 sm:p-9"
+      >
+        <p className="font-display text-xl font-bold text-foreground sm:text-2xl text-balance">
+          We don&apos;t just answer phones. We <span className="grad-text">recover lost revenue</span> automatically.
+        </p>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+          MANOLOGICS is the autonomous revenue layer that captures the opportunities your business is silently losing
+          every single day:
+        </p>
+        <div className="mt-6 flex flex-wrap gap-2.5">
+          {RECOVERY_DIFFERENTIATORS.map((item, i) => (
+            <motion.span
+              key={item}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.04 }}
+              className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold text-foreground"
+              style={{ borderColor: "rgba(34,197,94,0.28)", background: "rgba(34,197,94,0.08)" }}
+            >
+              <RotateCcw className="h-3 w-3 text-green" />
+              Recover {item}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
 
       <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr]">
         {/* live metrics grid */}

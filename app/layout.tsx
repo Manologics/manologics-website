@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, Space_Grotesk, Space_Mono } from "next/font/google"
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({
@@ -7,15 +7,16 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 })
-const spaceGrotesk = Space_Grotesk({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-inter-tight",
   display: "swap",
 })
-const spaceMono = Space_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 })
 
@@ -53,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} bg-background`}
+      className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable} bg-background`}
     >
       <body className="font-sans antialiased">{children}</body>
     </html>

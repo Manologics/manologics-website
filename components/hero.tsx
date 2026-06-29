@@ -1,8 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Zap, Phone, Check } from "lucide-react"
+import { Zap, Phone, Calendar, Check } from "lucide-react"
 import { OrusCore } from "./orus-core"
+import { AnimatedCounter } from "./animated-counter"
 import { HERO_STATS } from "@/lib/data"
 
 const features = ["No credit card", "Live AI call", "English + Spanish", "Setup in minutes"]
@@ -47,7 +48,14 @@ export function Hero() {
                 className="flex items-center gap-2 rounded-[10px] border px-5 py-3 text-sm font-semibold text-muted transition-colors hover:text-foreground"
                 style={{ borderColor: "rgba(96,165,250,0.22)" }}
               >
-                <Phone className="h-4 w-4" /> Call Our AI Now
+                <Phone className="h-4 w-4" /> Talk With Our AI
+              </a>
+              <a
+                href="#contact"
+                className="flex items-center gap-2 rounded-[10px] border px-5 py-3 text-sm font-semibold text-muted transition-colors hover:text-foreground"
+                style={{ borderColor: "rgba(96,165,250,0.22)" }}
+              >
+                <Calendar className="h-4 w-4" /> Book Consultation
               </a>
             </div>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
@@ -85,7 +93,12 @@ export function Hero() {
                 className={`font-mono text-3xl font-extrabold leading-none ${s.color === "grad" ? "grad-text" : ""}`}
                 style={s.color !== "grad" ? { color: s.color } : undefined}
               >
-                {s.value}
+                <AnimatedCounter
+                  value={s.value}
+                  prefix={s.prefix}
+                  suffix={s.suffix}
+                  decimals={s.decimals ?? 0}
+                />
               </div>
               <div className="mt-2 text-[11px] text-muted">{s.label}</div>
             </div>
