@@ -16,12 +16,130 @@ import {
 } from "lucide-react"
 import { SectionHeading } from "./section-heading"
 import { WorldMap } from "./world-map"
-import { DASH_NAV, DASH_AGENTS, KNOWLEDGE_SOURCES } from "@/lib/data"
+import { AnimatedCounter } from "./animated-counter"
+import { DASH_NAV, DASH_AGENTS, KNOWLEDGE_SOURCES, REVENUE_INTEL, AI_WORKFORCE } from "@/lib/data"
 
 const STATUS_COLOR: Record<string, string> = {
   Online: "var(--color-green)",
   Busy: "var(--color-amber)",
   Training: "var(--color-blue-light)",
+}
+
+function RevenueIntelligence() {
+  return (
+    <div className="mb-6">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-green dot-pulse" />
+        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-foreground">
+          Live Revenue Intelligence
+        </h3>
+      </div>
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        {REVENUE_INTEL.map((card, i) => {
+          const Icon = card.icon
+          return (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.06 }}
+              className="glass glass-hover relative overflow-hidden rounded-2xl p-4"
+            >
+              <span
+                className="absolute right-0 top-0 h-16 w-16 rounded-full opacity-20 blur-2xl"
+                style={{ background: card.color }}
+                aria-hidden
+              />
+              <div className="mb-2 flex items-center justify-between">
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border"
+                  style={{ background: `${card.color}1f`, borderColor: `${card.color}40` }}
+                >
+                  <Icon className="h-4 w-4" style={{ color: card.color }} />
+                </span>
+                <span
+                  className="rounded-full px-2 py-0.5 text-[10px] font-bold"
+                  style={{ background: "rgba(34,197,94,0.14)", color: "#22c55e" }}
+                >
+                  {card.delta}
+                </span>
+              </div>
+              <div className="font-mono text-xl font-extrabold leading-none text-foreground tabular-nums sm:text-2xl">
+                <AnimatedCounter
+                  value={card.value}
+                  prefix={card.prefix}
+                  suffix={card.suffix}
+                  decimals={card.decimals ?? 0}
+                />
+              </div>
+              <div className="mt-1.5 text-[11px] uppercase tracking-wider text-faint">{card.label}</div>
+            </motion.div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function AiWorkforcePanel() {
+  return (
+    <div className="mt-6">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-foreground">AI Workforce</h3>
+        <span className="text-xs text-muted">6 agents · all systems operational</span>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {AI_WORKFORCE.map((emp, i) => {
+          const Icon = emp.icon
+          return (
+            <motion.div
+              key={emp.name}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              className="glass glass-hover rounded-2xl p-4"
+            >
+              <div className="mb-3 flex items-center gap-3">
+                <span
+                  className="relative flex h-11 w-11 items-center justify-center rounded-xl border"
+                  style={{ background: `${emp.accent}1f`, borderColor: `${emp.accent}40` }}
+                >
+                  <Icon className="h-5 w-5" style={{ color: emp.accent }} />
+                  <span
+                    className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2"
+                    style={{
+                      background: STATUS_COLOR[emp.status],
+                      borderColor: "var(--color-bg)",
+                    }}
+                  />
+                </span>
+                <div className="min-w-0">
+                  <div className="truncate font-display text-sm font-bold text-foreground">{emp.name}</div>
+                  <div className="truncate text-[11px] text-muted">{emp.role}</div>
+                </div>
+              </div>
+              <div className="mb-3 flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wider"
+                style={{ color: STATUS_COLOR[emp.status] }}
+              >
+                <span className="h-1.5 w-1.5 rounded-full dot-pulse" style={{ background: STATUS_COLOR[emp.status] }} />
+                {emp.status}
+              </div>
+              <div className="space-y-1.5">
+                {emp.stats.map((s) => (
+                  <div key={s.label} className="flex items-center justify-between text-[12px]">
+                    <span className="text-muted">{s.label}</span>
+                    <span className="font-mono font-semibold text-foreground">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 const KPI_DEFS = [
@@ -72,13 +190,13 @@ export function DashboardPreview() {
   return (
     <section id="dashboard" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
-        eyebrow="Command Center"
+        eyebrow="Executive Command Center"
         title={
           <>
-            Your entire AI workforce in <span className="grad-text">one dashboard</span>
+            Not a CRM. An <span className="grad-text">AI Operating System</span>
           </>
         }
-        sub="Monitor live calls across the globe, track every agent's performance, and sync your knowledge base in real time."
+        sub="Live revenue intelligence, a full AI workforce, and global call operations — every metric updating in real time, built for the people who run the business."
       />
 
       <motion.div
@@ -121,7 +239,9 @@ export function DashboardPreview() {
           {/* main */}
           <div className="p-5 sm:p-6">
             <DashboardKpis />
+            <RevenueIntelligence />
             <WorldMap />
+            <AiWorkforcePanel />
 
             {/* agents table */}
             <div className="mt-6">

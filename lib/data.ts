@@ -30,6 +30,9 @@ import {
   Bell,
   ClipboardList,
   UserCheck,
+  PhoneIncoming,
+  Waves,
+  Smile,
 } from "lucide-react"
 
 export type IndustryKey = "healthcare" | "realestate" | "automotive" | "legal" | "financial" | "home"
@@ -645,6 +648,130 @@ export const MANO_RESPONSIBILITIES: ManoResponsibility[] = [
   { icon: Zap, label: "Route Emergencies" },
   { icon: UserCheck, label: "Escalate To Humans" },
   { icon: BarChart3, label: "Produce Analytics" },
+]
+
+// ---- Live AI Demonstration: 8-step automation pipeline ----
+export interface AutomationStep {
+  icon: LucideIcon
+  label: string
+  detail: string
+}
+
+export const AUTOMATION_STEPS: AutomationStep[] = [
+  { icon: PhoneIncoming, label: "Incoming Call", detail: "Twilio webhook received" },
+  { icon: Waves, label: "Voice Processing", detail: "ORUS neural ASR engaged" },
+  { icon: Target, label: "Intent Detection", detail: "Service + trade-in intent" },
+  { icon: UserCheck, label: "Lead Qualified", detail: "HOT lead · score 96" },
+  { icon: Calendar, label: "Appointment Booked", detail: "Calendar slot reserved" },
+  { icon: FileText, label: "CRM Updated", detail: "Pipeline record created" },
+  { icon: MessageSquare, label: "SMS Confirmation", detail: "Twilio SMS delivered" },
+  { icon: DollarSign, label: "Revenue Captured", detail: "+$4,820 attributed" },
+]
+
+// ---- Executive Command Dashboard: AI workforce employees ----
+export interface AiEmployee {
+  icon: LucideIcon
+  name: string
+  role: string
+  status: "Online" | "Busy" | "Training"
+  accent: string
+  stats: { label: string; value: string }[]
+}
+
+export const AI_WORKFORCE: AiEmployee[] = [
+  {
+    icon: Mic,
+    name: "MANO",
+    role: "Executive Voice Operator",
+    status: "Online",
+    accent: "#60a5fa",
+    stats: [
+      { label: "Calls Today", value: "148" },
+      { label: "Appointments", value: "42" },
+      { label: "Automation Success", value: "99%" },
+    ],
+  },
+  {
+    icon: Calendar,
+    name: "OPS BOOKER",
+    role: "Scheduling Intelligence",
+    status: "Online",
+    accent: "#06b6d4",
+    stats: [
+      { label: "Bookings Today", value: "61" },
+      { label: "Calendar Sync", value: "Active" },
+      { label: "Conflicts", value: "0" },
+    ],
+  },
+  {
+    icon: MessageSquare,
+    name: "SMS BOT",
+    role: "Messaging Automation",
+    status: "Online",
+    accent: "#22c55e",
+    stats: [
+      { label: "Messages Today", value: "1,247" },
+      { label: "Delivery", value: "99.8%" },
+      { label: "Replies Handled", value: "318" },
+    ],
+  },
+  {
+    icon: Mail,
+    name: "EMAIL AI",
+    role: "Inbox Intelligence",
+    status: "Online",
+    accent: "#8b5cf6",
+    stats: [
+      { label: "Inbox Managed", value: "642" },
+      { label: "Response Time", value: "14s" },
+      { label: "Escalations", value: "11" },
+    ],
+  },
+  {
+    icon: TrendingUp,
+    name: "REVENUE AI",
+    role: "Growth + Recovery",
+    status: "Online",
+    accent: "#f59e0b",
+    stats: [
+      { label: "Recovered Revenue", value: "$28,420" },
+      { label: "Opportunities Saved", value: "84" },
+      { label: "Conversion Lift", value: "+34%" },
+    ],
+  },
+  {
+    icon: CarFront,
+    name: "AUTO DESK",
+    role: "Automotive BDC",
+    status: "Busy",
+    accent: "#ef4444",
+    stats: [
+      { label: "Trade-Ins", value: "27" },
+      { label: "Service Bookings", value: "48" },
+      { label: "BDC Queue", value: "Healthy" },
+    ],
+  },
+]
+
+// ---- Executive Command Dashboard: live revenue intelligence KPIs ----
+export interface RevenueIntelCard {
+  icon: LucideIcon
+  label: string
+  value: number
+  prefix?: string
+  suffix?: string
+  decimals?: number
+  delta: string
+  color: string
+}
+
+export const REVENUE_INTEL: RevenueIntelCard[] = [
+  { icon: DollarSign, label: "Today's Revenue", value: 482900, prefix: "$", delta: "+18.4%", color: "#22c55e" },
+  { icon: RefreshCw, label: "Recovered Revenue", value: 88420, prefix: "$", delta: "+12.1%", color: "#60a5fa" },
+  { icon: Target, label: "AI Conversion Rate", value: 64, suffix: "%", delta: "+6.2%", color: "#06b6d4" },
+  { icon: Calendar, label: "Appointments", value: 1342, delta: "+9.7%", color: "#8b5cf6" },
+  { icon: Star, label: "Lead Quality", value: 92, suffix: "%", delta: "+4.0%", color: "#f59e0b" },
+  { icon: Smile, label: "Customer Satisfaction", value: 98, suffix: "%", delta: "+1.3%", color: "#22c55e" },
 ]
 
 export interface HeroStat {

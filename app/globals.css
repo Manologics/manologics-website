@@ -295,6 +295,47 @@ h3 {
     box-shadow: 0 0 90px rgba(37, 99, 235, 0.55), inset 0 0 55px rgba(139, 92, 246, 0.3);
   }
 }
+/* listening: brighter, cyan-tinted breathing */
+@keyframes core-listen {
+  0%,
+  100% {
+    box-shadow: 0 0 70px rgba(6, 182, 212, 0.5), inset 0 0 45px rgba(6, 182, 212, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 110px rgba(6, 182, 212, 0.75), inset 0 0 60px rgba(6, 182, 212, 0.35);
+  }
+}
+/* thinking: violet, rapid pulse */
+@keyframes core-think {
+  0%,
+  100% {
+    box-shadow: 0 0 70px rgba(139, 92, 246, 0.5), inset 0 0 45px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 120px rgba(139, 92, 246, 0.85), inset 0 0 65px rgba(96, 165, 250, 0.4);
+  }
+}
+/* responding: green-blue energetic */
+@keyframes core-respond {
+  0%,
+  100% {
+    box-shadow: 0 0 80px rgba(34, 197, 94, 0.45), inset 0 0 50px rgba(37, 99, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 130px rgba(34, 197, 94, 0.7), inset 0 0 70px rgba(37, 99, 235, 0.4);
+  }
+}
+/* energy pulse ring traveling outward on response */
+@keyframes energy-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
 
 /* ---- waveform ---- */
 @keyframes wave {
@@ -362,6 +403,34 @@ h3 {
   }
   50% {
     opacity: 1;
+  }
+}
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-blue-light);
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+/* connector energy flowing down the automation pipeline */
+@keyframes connector-flow {
+  0% {
+    background-position: 0 -20px;
+  }
+  100% {
+    background-position: 0 20px;
   }
 }
 
