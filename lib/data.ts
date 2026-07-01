@@ -650,6 +650,53 @@ export const MANO_RESPONSIBILITIES: ManoResponsibility[] = [
   { icon: BarChart3, label: "Produce Analytics" },
 ]
 
+// ---- Core Operations Team: Mano (operator) + Mila (executor) ----
+export interface CoreTeamDuty {
+  icon: LucideIcon
+  label: string
+}
+
+export interface CoreTeamMember {
+  persona: "mano" | "mila"
+  name: string
+  role: string
+  tagline: string
+  accent: string
+  accentSoft: string
+  duties: CoreTeamDuty[]
+}
+
+export const CORE_TEAM: CoreTeamMember[] = [
+  {
+    persona: "mano",
+    name: "Mano",
+    role: "Core AI Operator",
+    tagline: "The voice. Mano answers, talks, qualifies, and closes the conversation — live, in real time.",
+    accent: "#60a5fa",
+    accentSoft: "rgba(37,99,235,0.12)",
+    duties: [
+      { icon: Phone, label: "Answers Every Call" },
+      { icon: Mic, label: "Talks & Engages" },
+      { icon: Target, label: "Qualifies The Lead" },
+      { icon: UserCheck, label: "Closes The Conversation" },
+    ],
+  },
+  {
+    persona: "mila",
+    name: "Mila",
+    role: "Operations & Execution Specialist",
+    tagline: "The execution. While Mano keeps talking, Mila books, confirms, updates, and queues the follow-up.",
+    accent: "#4ade80",
+    accentSoft: "rgba(34,197,94,0.12)",
+    duties: [
+      { icon: Calendar, label: "Books The Appointment" },
+      { icon: MessageSquare, label: "Fires SMS Confirmation" },
+      { icon: FileText, label: "Updates The CRM" },
+      { icon: RefreshCw, label: "Queues Follow-Up" },
+    ],
+  },
+]
+
 // ---- Live AI Demonstration: 8-step automation pipeline ----
 export interface AutomationStep {
   icon: LucideIcon
