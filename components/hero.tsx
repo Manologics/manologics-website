@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Zap, Phone, Calendar, Check } from "lucide-react"
-import { OrusCore } from "./orus-core"
+import { ManoOperator } from "./mano-operator"
 import { AnimatedCounter } from "./animated-counter"
 import { HERO_STATS } from "@/lib/data"
 
@@ -57,7 +57,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <OrusCore size={420} />
+            <ManoOperator size={420} />
           </motion.div>
         </div>
 

@@ -18,7 +18,7 @@ export function RevenueRecovery() {
             Recover the revenue you&apos;re <span className="grad-text">already losing</span>
           </>
         }
-        sub="Every missed call is a missed customer. ORUS answers, qualifies, books, and follows up — turning lost calls into booked revenue, tracked live."
+        sub="Every missed call is a missed customer. MANO answers, qualifies, books, and follows up — turning lost calls into booked revenue, tracked live."
       />
 
       {/* core market position */}

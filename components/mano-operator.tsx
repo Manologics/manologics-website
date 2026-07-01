@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion"
 
-export type OrusState = "idle" | "listening" | "thinking" | "responding"
+export type ManoState = "idle" | "listening" | "thinking" | "responding"
 
 const STATE_CONFIG: Record<
-  OrusState,
+  ManoState,
   {
     glowAnim: string
     glowBg: string
@@ -54,7 +54,7 @@ const STATE_CONFIG: Record<
   },
 }
 
-export function OrusCore({
+export function ManoOperator({
   size = 420,
   showLabel = true,
   showStatus = true,
@@ -63,7 +63,7 @@ export function OrusCore({
   size?: number
   showLabel?: boolean
   showStatus?: boolean
-  state?: OrusState
+  state?: ManoState
 }) {
   const ringSize = size * 0.81
   const faceSize = size * 0.48
@@ -74,7 +74,7 @@ export function OrusCore({
     <div
       className="relative flex items-center justify-center"
       style={{ height: size }}
-      aria-label={`ORUS holographic AI core — ${cfg.label}`}
+      aria-label={`MANO — Core AI Operator holographic core — ${cfg.label}`}
     >
       {/* radial glow */}
       <motion.div
@@ -270,7 +270,7 @@ export function OrusCore({
                 WebkitTextFillColor: "transparent",
               }}
             >
-              ORUS
+              MANO
             </div>
             <div className="text-[9px] uppercase tracking-[0.18em] text-muted">Core AI Operator</div>
           </div>
@@ -287,7 +287,7 @@ export function OrusCore({
           className="glass absolute bottom-0 rounded-xl px-5 py-3 text-center"
           style={{ borderColor: "rgba(96,165,250,0.22)" }}
         >
-          <div className="font-display text-sm font-bold tracking-[0.2em]">ORUS</div>
+          <div className="font-display text-sm font-bold tracking-[0.2em]">MANO</div>
           <div className="text-[9px] uppercase tracking-wider text-muted">Core AI Operator</div>
           <div className="mt-1 flex items-center justify-center gap-1.5 text-[9px]" style={{ color: cfg.labelColor }}>
             <span className="h-1.5 w-1.5 rounded-full dot-pulse" style={{ background: cfg.labelColor }} />

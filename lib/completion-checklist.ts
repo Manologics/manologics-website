@@ -23,9 +23,9 @@ export interface ChecklistItem {
 export const COMPLETION_CHECKLIST: ChecklistItem[] = [
   {
     id: 1,
-    title: "ORUS Holographic Core",
+    title: "MANO Holographic Core (Core AI Operator)",
     status: "complete",
-    implementedBy: ["components/orus-core.tsx"],
+    implementedBy: ["components/mano-operator.tsx"],
     notes: "State-driven (idle/listening/thinking/responding) with audio-reactive ring, radar sweep, and energy pulses.",
   },
   {
@@ -33,7 +33,7 @@ export const COMPLETION_CHECKLIST: ChecklistItem[] = [
     title: "Live AI Demo (transcript, sentiment, confidence, intent, automation checklist)",
     status: "complete",
     implementedBy: ["components/live-sandbox.tsx", "lib/data.ts:AUTOMATION_STEPS"],
-    notes: "Self-playing call with live transcript + typing indicator, ORUS state sync, and 8-step automation pipeline.",
+    notes: "Self-playing call with live transcript + typing indicator, MANO state sync, and 8-step automation pipeline.",
   },
   {
     id: 3,

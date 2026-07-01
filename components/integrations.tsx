@@ -14,7 +14,7 @@ export function Integrations() {
             Plugs into the tools you <span className="grad-text">already run on</span>
           </>
         }
-        sub="ORUS connects to your phone system, CRM, calendar, and automation stack out of the box — no rip-and-replace required."
+        sub="MANOLOGICS connects to your phone system, CRM, calendar, and automation stack out of the box — no rip-and-replace required."
       />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
