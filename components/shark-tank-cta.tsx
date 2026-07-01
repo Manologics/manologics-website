@@ -28,8 +28,8 @@ export function SharkTankCta() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted">
-            Join the businesses already recovering six figures in lost revenue with MANO. Book a live demo and hear MANO
-            answer your calls in under a minute.
+            Join the businesses already recovering six figures in lost revenue with MANOLOGICS. Book a live demo and hear
+            MANO answer your calls in under a minute.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

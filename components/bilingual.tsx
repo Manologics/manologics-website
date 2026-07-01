@@ -85,7 +85,7 @@ export function Bilingual() {
             </span>
             <div>
               <p className="text-sm font-semibold text-foreground">Natural neural voices</p>
-              <p className="text-xs text-muted">Studio-grade MANOLOGICS neural TTS — indistinguishable from human</p>
+              <p className="text-xs text-muted">Studio-grade MANO neural TTS — indistinguishable from human</p>
             </div>
           </div>
         </motion.div>

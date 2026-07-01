@@ -351,7 +351,7 @@ export const FLOW_NODES: FlowNode[] = [
     icon: Mic,
     status: "Active",
     latency: "340ms",
-    automation: "MANOLOGICS voice engine engaged",
+    automation: "MANO voice engine engaged",
     owner: "MANO",
     lastRun: "00:03 ago",
   },
@@ -659,7 +659,7 @@ export interface AutomationStep {
 
 export const AUTOMATION_STEPS: AutomationStep[] = [
   { icon: PhoneIncoming, label: "Incoming Call", detail: "Twilio webhook received" },
-  { icon: Waves, label: "Voice Processing", detail: "MANOLOGICS neural ASR engaged" },
+  { icon: Waves, label: "Voice Processing", detail: "MANO neural ASR engaged" },
   { icon: Target, label: "Intent Detection", detail: "Service + trade-in intent" },
   { icon: UserCheck, label: "Lead Qualified", detail: "HOT lead · score 96" },
   { icon: Calendar, label: "Appointment Booked", detail: "Calendar slot reserved" },

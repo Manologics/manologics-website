@@ -49,7 +49,7 @@
 - Pure HTML / CSS / JavaScript — zero dependencies, zero build step
 - Self-contained, deploy anywhere
 - Backend: Base44 (entities, automations, backend functions)
-- Voice: Gemini 2.5 Flash TTS (MANOLOGICS voice engine)
+- Voice: Gemini 2.5 Flash TTS (MANO voice engine)
 - SMS/Voice: Twilio
 - Payments: Stripe
 
