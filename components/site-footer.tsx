@@ -1,6 +1,7 @@
 "use client"
 
 import { Cpu } from "lucide-react"
+import { BOOK_DEMO_URL } from "@/lib/data"
 
 const COLUMNS = [
   {
@@ -47,13 +48,20 @@ export function SiteFooter() {
             <div key={col.title}>
               <h3 className="text-sm font-bold text-foreground">{col.title}</h3>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-muted transition-colors hover:text-blue-light">
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isBookDemo = link === "Book a Demo"
+                  return (
+                    <li key={link}>
+                      <a
+                        href={isBookDemo ? BOOK_DEMO_URL : "#"}
+                        {...(isBookDemo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="text-sm text-muted transition-colors hover:text-blue-light"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}

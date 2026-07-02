@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Sparkles, ArrowRight, PhoneCall } from "lucide-react"
-import { BOOK_DEMO_URL } from "@/lib/data"
+import { BOOK_DEMO_URL, MANO_PHONE_URL } from "@/lib/data"
 
 export function SharkTankCta() {
   return (
@@ -44,7 +44,7 @@ export function SharkTankCta() {
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="#talk"
+              href={MANO_PHONE_URL}
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-bg/40 px-7 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-bg2/60 sm:w-auto"
             >
               <PhoneCall className="h-4 w-4 text-blue-light" />

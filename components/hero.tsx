@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Phone, Calendar, Check } from "lucide-react"
 import { ManoOperator } from "./mano-operator"
 import { AnimatedCounter } from "./animated-counter"
-import { HERO_STATS, BOOK_DEMO_URL } from "@/lib/data"
+import { HERO_STATS, BOOK_DEMO_URL, MANO_PHONE_URL } from "@/lib/data"
 
 const features = ["No credit card", "Live AI call", "English + Spanish", "Setup in minutes"]
 
@@ -41,7 +41,7 @@ export function Hero() {
               >
                 <Calendar className="h-4 w-4" /> Book a Live Demo
               </a>
-              <a href="#talk" className="btn-os btn-ghost">
+              <a href={MANO_PHONE_URL} className="btn-os btn-ghost">
                 <Phone className="h-4 w-4" /> Talk to MANO Now
               </a>
             </div>

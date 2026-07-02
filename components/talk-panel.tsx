@@ -25,7 +25,7 @@ export function TalkPanel() {
     <section id="talk" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
-          eyebrow="Talk With Our AI Agent"
+          eyebrow="Talk to MANO"
           title="Press Talk. Have A Real Conversation."
           sub="Pick an agent, tap to speak, and experience a human-like voice conversation handled end-to-end by MANOLOGICS."
         />

@@ -602,8 +602,10 @@ export const NAV_LINKS = [
 ]
 
 // Single primary conversion action across the entire site (Calendly booking).
-// TODO: replace with the real MANOLOGICS Calendly link.
-export const BOOK_DEMO_URL = "https://calendly.com/manologics/live-demo"
+export const BOOK_DEMO_URL = "https://calendly.com/monkee-bizznus/30min"
+
+// Live agent phone line — dials the actual Mano operator.
+export const MANO_PHONE_URL = "tel:+18778734701"
 
 export const RECOVERY_DIFFERENTIATORS: string[] = [
   "Missed Calls",
