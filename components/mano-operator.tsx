@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion"
 
-export type OrusState = "idle" | "listening" | "thinking" | "responding"
+export type ManoState = "idle" | "listening" | "thinking" | "responding"
+export type ManoPersona = "mano" | "mila"
 
 const STATE_CONFIG: Record<
-  OrusState,
+  ManoState,
   {
     glowAnim: string
     glowBg: string
@@ -54,27 +55,106 @@ const STATE_CONFIG: Record<
   },
 }
 
-export function OrusCore({
+// Per-persona palette. "mano" mirrors the original hardcoded values exactly so
+// existing usages (Hero, LiveSandbox) render byte-for-byte identically.
+const PERSONA_CONFIG: Record<
+  ManoPersona,
+  {
+    name: string
+    title: string
+    shortTitle: string
+    faceGrad: string
+    faceBorder: string
+    faceAnim?: string
+    labelGrad: string
+    ringOuterActive: string
+    ringOuterIdle: string
+    ringMid: string
+    ringInner: string
+    nodes: [string, string, string]
+    centerDot: string
+    meshFrom: string
+    meshTo: string
+    sweep: string
+    waveBase: string
+    eyeOverride?: string
+    glowOverride?: string
+    statusOnline: string
+  }
+> = {
+  mano: {
+    name: "MANO",
+    title: "Core AI Operator",
+    shortTitle: "Core AI Operator",
+    faceGrad: "radial-gradient(circle at 50% 40%, rgba(37,99,235,0.32), rgba(139,92,246,0.2), rgba(5,7,13,0.92))",
+    faceBorder: "rgba(96,165,250,0.22)",
+    labelGrad: "linear-gradient(135deg, #60a5fa, #06b6d4)",
+    ringOuterActive: "rgba(96,165,250,0.35)",
+    ringOuterIdle: "rgba(96,165,250,0.2)",
+    ringMid: "rgba(139,92,246,0.18)",
+    ringInner: "rgba(6,182,212,0.16)",
+    nodes: ["#60a5fa", "#8b5cf6", "#06b6d4"],
+    centerDot: "#06b6d4",
+    meshFrom: "#60a5fa",
+    meshTo: "#8b5cf6",
+    sweep: "rgba(96,165,250,0.22)",
+    waveBase: "rgba(37,99,235,0.1)",
+    statusOnline: "Live Revenue Intelligence Online",
+  },
+  mila: {
+    name: "MILA",
+    title: "Operations & Execution Specialist",
+    shortTitle: "Execution Core",
+    faceGrad: "radial-gradient(circle at 50% 40%, rgba(45,212,191,0.32), rgba(6,182,212,0.18), rgba(5,7,13,0.92))",
+    faceBorder: "rgba(45,212,191,0.26)",
+    faceAnim: "core-pulse-mila 4s ease-in-out infinite",
+    labelGrad: "linear-gradient(135deg, #2dd4bf, #22d3ee)",
+    ringOuterActive: "rgba(45,212,191,0.34)",
+    ringOuterIdle: "rgba(45,212,191,0.18)",
+    ringMid: "rgba(6,182,212,0.2)",
+    ringInner: "rgba(20,184,166,0.16)",
+    nodes: ["#2dd4bf", "#22d3ee", "#14b8a6"],
+    centerDot: "#22d3ee",
+    meshFrom: "#2dd4bf",
+    meshTo: "#22d3ee",
+    sweep: "rgba(45,212,191,0.2)",
+    waveBase: "rgba(45,212,191,0.1)",
+    eyeOverride: "#2dd4bf",
+    glowOverride: "radial-gradient(circle, rgba(45,212,191,0.3), rgba(6,182,212,0.14) 42%, transparent 70%)",
+    statusOnline: "Execution Pipeline Online",
+  },
+}
+
+export function ManoOperator({
   size = 420,
   showLabel = true,
   showStatus = true,
   state = "idle",
+  persona = "mano",
 }: {
   size?: number
   showLabel?: boolean
   showStatus?: boolean
-  state?: OrusState
+  state?: ManoState
+  persona?: ManoPersona
 }) {
   const ringSize = size * 0.81
   const faceSize = size * 0.48
   const cfg = STATE_CONFIG[state]
+  const p = PERSONA_CONFIG[persona]
   const active = state !== "idle"
+
+  // Persona palette wins where provided; otherwise fall back to state-driven color (MANO).
+  const eye = p.eyeOverride ?? cfg.eye
+  const glowBg = p.glowOverride ?? cfg.glowBg
+  const faceAnim = p.faceAnim ?? cfg.glowAnim
+  const meshId = `meshGrad-${persona}`
 
   return (
     <div
       className="relative flex items-center justify-center"
       style={{ height: size }}
-      aria-label={`ORUS holographic AI core — ${cfg.label}`}
+      aria-label={`${p.name} — ${p.title} holographic core — ${cfg.label}`}
     >
       {/* radial glow */}
       <motion.div
@@ -85,7 +165,7 @@ export function OrusCore({
         style={{
           width: size,
           height: size,
-          background: cfg.glowBg,
+          background: glowBg,
           filter: "blur(10px)",
         }}
       />
@@ -111,7 +191,7 @@ export function OrusCore({
         <div
           className="absolute inset-0 rounded-full border"
           style={{
-            borderColor: active ? "rgba(96,165,250,0.35)" : "rgba(96,165,250,0.2)",
+            borderColor: active ? p.ringOuterActive : p.ringOuterIdle,
             animation: `spin ${20 * cfg.ringSpeed}s linear infinite`,
           }}
         />
@@ -119,7 +199,7 @@ export function OrusCore({
           className="absolute rounded-full border border-dashed"
           style={{
             inset: ringSize * 0.09,
-            borderColor: "rgba(139,92,246,0.18)",
+            borderColor: p.ringMid,
             animation: `spin-rev ${15 * cfg.ringSpeed}s linear infinite`,
           }}
         />
@@ -127,7 +207,7 @@ export function OrusCore({
           className="absolute rounded-full border"
           style={{
             inset: ringSize * 0.18,
-            borderColor: "rgba(6,182,212,0.16)",
+            borderColor: p.ringInner,
             animation: `spin ${25 * cfg.ringSpeed}s linear infinite`,
           }}
         />
@@ -141,7 +221,7 @@ export function OrusCore({
             <span
               className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full"
               style={{
-                background: deg === 120 ? "#8b5cf6" : deg === 240 ? "#06b6d4" : "#60a5fa",
+                background: deg === 120 ? p.nodes[1] : deg === 240 ? p.nodes[2] : p.nodes[0],
                 boxShadow: "0 0 12px currentColor",
                 transform: `rotate(${deg}deg)`,
               }}
@@ -170,7 +250,7 @@ export function OrusCore({
                   width: 2,
                   height: h,
                   borderRadius: 2,
-                  background: `linear-gradient(to top, rgba(37,99,235,0.1), ${cfg.eye})`,
+                  background: `linear-gradient(to top, ${p.waveBase}, ${eye})`,
                   transformOrigin: "center top",
                   animation: `wave ${(1 + (i % 5) * 0.12) * cfg.waveSpeed}s ease-in-out ${i * 0.03}s infinite`,
                 }}
@@ -186,10 +266,9 @@ export function OrusCore({
         style={{
           width: faceSize,
           height: faceSize,
-          borderColor: "rgba(96,165,250,0.22)",
-          background:
-            "radial-gradient(circle at 50% 40%, rgba(37,99,235,0.32), rgba(139,92,246,0.2), rgba(5,7,13,0.92))",
-          animation: cfg.glowAnim,
+          borderColor: p.faceBorder,
+          background: p.faceGrad,
+          animation: faceAnim,
         }}
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -210,8 +289,7 @@ export function OrusCore({
           className="pointer-events-none absolute inset-0 rounded-full"
           aria-hidden
           style={{
-            background:
-              "conic-gradient(from 0deg, rgba(96,165,250,0.22), transparent 55deg, transparent 360deg)",
+            background: `conic-gradient(from 0deg, ${p.sweep}, transparent 55deg, transparent 360deg)`,
             animation: `spin ${6 * cfg.ringSpeed}s linear infinite`,
             mixBlendMode: "screen",
           }}
@@ -220,12 +298,12 @@ export function OrusCore({
         {/* face mesh SVG with reactive glowing eyes */}
         <svg viewBox="0 0 120 120" className="absolute inset-0 h-full w-full opacity-70" aria-hidden>
           <defs>
-            <linearGradient id="meshGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#60a5fa" />
-              <stop offset="100%" stopColor="#8b5cf6" />
+            <linearGradient id={meshId} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor={p.meshFrom} />
+              <stop offset="100%" stopColor={p.meshTo} />
             </linearGradient>
           </defs>
-          <g stroke="url(#meshGrad)" strokeWidth="0.6" fill="none" opacity="0.85">
+          <g stroke={`url(#${meshId})`} strokeWidth="0.6" fill="none" opacity="0.85">
             <path d="M40 38 Q60 30 80 38" />
             <path d="M36 52 Q60 44 84 52" />
             <path d="M34 66 Q60 60 86 66" />
@@ -235,13 +313,13 @@ export function OrusCore({
             <path d="M72 34 L72 86" />
           </g>
           {/* glowing eyes react to state */}
-          <circle cx="48" cy="52" r="2.4" fill={cfg.eye} stroke="none">
+          <circle cx="48" cy="52" r="2.4" fill={eye} stroke="none">
             <animate attributeName="r" values="2.4;3.2;2.4" dur={active ? "1.2s" : "3s"} repeatCount="indefinite" />
           </circle>
-          <circle cx="72" cy="52" r="2.4" fill={cfg.eye} stroke="none">
+          <circle cx="72" cy="52" r="2.4" fill={eye} stroke="none">
             <animate attributeName="r" values="2.4;3.2;2.4" dur={active ? "1.2s" : "3s"} repeatCount="indefinite" />
           </circle>
-          <circle cx="60" cy="66" r="1.6" fill="#06b6d4" stroke="none" />
+          <circle cx="60" cy="66" r="1.6" fill={p.centerDot} stroke="none" />
         </svg>
 
         {/* core voice waveform */}
@@ -264,15 +342,15 @@ export function OrusCore({
             <div
               className="font-display text-xl font-extrabold tracking-[0.3em]"
               style={{
-                background: "linear-gradient(135deg, #60a5fa, #06b6d4)",
+                background: p.labelGrad,
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
             >
-              ORUS
+              {p.name}
             </div>
-            <div className="text-[9px] uppercase tracking-[0.18em] text-muted">Core AI Operator</div>
+            <div className="whitespace-nowrap text-[9px] uppercase tracking-[0.18em] text-muted">{p.shortTitle}</div>
           </div>
         )}
       </motion.div>
@@ -285,13 +363,13 @@ export function OrusCore({
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
           className="glass absolute bottom-0 rounded-xl px-5 py-3 text-center"
-          style={{ borderColor: "rgba(96,165,250,0.22)" }}
+          style={{ borderColor: p.faceBorder }}
         >
-          <div className="font-display text-sm font-bold tracking-[0.2em]">ORUS</div>
-          <div className="text-[9px] uppercase tracking-wider text-muted">Core AI Operator</div>
+          <div className="font-display text-sm font-bold tracking-[0.2em]">{p.name}</div>
+          <div className="text-[9px] uppercase tracking-wider text-muted">{p.title}</div>
           <div className="mt-1 flex items-center justify-center gap-1.5 text-[9px]" style={{ color: cfg.labelColor }}>
             <span className="h-1.5 w-1.5 rounded-full dot-pulse" style={{ background: cfg.labelColor }} />
-            {state === "idle" ? "Live Revenue Intelligence Online" : cfg.label}
+            {state === "idle" ? p.statusOnline : cfg.label}
           </div>
         </motion.div>
       )}

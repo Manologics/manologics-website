@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Check, Activity, Gauge, Clock, Sparkles, PhoneCall } from "lucide-react"
 import { SectionHeading } from "./section-heading"
-import { OrusCore, type OrusState } from "./orus-core"
+import { ManoOperator, type ManoState } from "./mano-operator"
 import { INDUSTRIES, INDUSTRY_ORDER, AUTOMATION_STEPS, type IndustryKey } from "@/lib/data"
 
 function MiniWave({ active, color = "#06b6d4" }: { active: boolean; color?: string }) {
@@ -35,7 +35,7 @@ export function LiveSandbox() {
   const [revealed, setRevealed] = useState(0)
   const [steps, setSteps] = useState(0)
   const [typing, setTyping] = useState(false)
-  const [orus, setOrus] = useState<OrusState>("idle")
+  const [mano, setMano] = useState<ManoState>("idle")
   const [timer, setTimer] = useState(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const data = INDUSTRIES[active]
@@ -64,21 +64,21 @@ export function LiveSandbox() {
         setRevealed(0)
         setSteps(0)
         setTyping(false)
-        setOrus("idle")
+        setMano("idle")
         await wait(900)
         for (let i = 0; i < convo.length && !cancelled; i++) {
           const m = convo[i]
           if (m.who === "cust") {
-            setOrus("listening")
+            setMano("listening")
             setRevealed(i + 1)
             await wait(2200)
           } else {
-            setOrus("thinking")
+            setMano("thinking")
             setTyping(true)
             await wait(1150)
             if (cancelled) break
             setTyping(false)
-            setOrus("responding")
+            setMano("responding")
             setRevealed(i + 1)
             await wait(2500)
           }
@@ -86,7 +86,7 @@ export function LiveSandbox() {
         }
         if (cancelled) break
         setSteps(AUTOMATION_STEPS.length)
-        setOrus("idle")
+        setMano("idle")
         await wait(3000)
       }
     }
@@ -104,7 +104,7 @@ export function LiveSandbox() {
 
   const mm = String(Math.floor(timer / 60)).padStart(2, "0")
   const ss = String(timer % 60).padStart(2, "0")
-  const latency = orus === "thinking" ? "612ms" : orus === "responding" ? "488ms" : "742ms"
+  const latency = mano === "thinking" ? "612ms" : mano === "responding" ? "488ms" : "742ms"
 
   return (
     <section id="demo" className="relative py-20 sm:py-28">
@@ -116,7 +116,7 @@ export function LiveSandbox() {
               Watch your business being <span className="grad-text">automated in real time</span>
             </>
           }
-          sub="This is not a screenshot. Select an industry and watch ORUS qualify a live caller, book the appointment, update the CRM, and capture revenue — automatically."
+          sub="This is not a screenshot. Select an industry and watch MANO qualify a live caller, book the appointment, update the CRM, and capture revenue — automatically."
         />
 
         {/* industry selector */}
@@ -218,36 +218,36 @@ export function LiveSandbox() {
             </div>
 
             <div className="mt-4 border-t border-border2 pt-3">
-              <MiniWave active={orus === "listening"} />
+              <MiniWave active={mano === "listening"} />
               <div className="mt-1 text-center text-[10px] uppercase tracking-wider text-muted">
-                {orus === "listening" ? "Caller speaking" : "Caller listening"}
+                {mano === "listening" ? "Caller speaking" : "Caller listening"}
               </div>
             </div>
           </div>
 
-          {/* CENTER — ORUS */}
+          {/* CENTER — MANO */}
           <div className="glass flex flex-col items-center rounded-2xl p-5">
-            <OrusCore size={272} showLabel showStatus={false} state={orus} />
+            <ManoOperator size={272} showLabel showStatus={false} state={mano} />
             <div
               className="mt-3 rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em]"
               style={{
                 color:
-                  orus === "listening"
+                  mano === "listening"
                     ? "#06b6d4"
-                    : orus === "thinking"
+                    : mano === "thinking"
                       ? "#8b5cf6"
-                      : orus === "responding"
+                      : mano === "responding"
                         ? "#22c55e"
                         : "#60a5fa",
                 borderColor: "rgba(96,165,250,0.2)",
                 background: "rgba(8,13,24,0.6)",
               }}
             >
-              {orus === "listening"
+              {mano === "listening"
                 ? "Listening to caller"
-                : orus === "thinking"
+                : mano === "thinking"
                   ? "Processing intent"
-                  : orus === "responding"
+                  : mano === "responding"
                     ? "Responding live"
                     : "Standing by"}
             </div>

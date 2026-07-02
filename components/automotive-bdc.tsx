@@ -16,7 +16,7 @@ export function AutomotiveBdc() {
             A full <span className="grad-text">AI Business Development Center</span> for dealerships
           </>
         }
-        sub="ORUS runs your service and sales BDC 24/7 — answering, qualifying, booking, and following up so no lead falls through the cracks."
+        sub="MANO runs your service and sales BDC 24/7 — answering, qualifying, booking, and following up so no lead falls through the cracks."
       />
 
       {/* feature grid */}

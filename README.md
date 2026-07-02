@@ -11,14 +11,14 @@
 | File | Description |
 |------|-------------|
 | `index.html` | The enterprise Agentic AI Voice landing page (15 sections, fully interactive) |
-| `dashboard.html` | The ORUS Command Center — live operations dashboard |
+| `dashboard.html` | The MANOLOGICS Command Center — live operations dashboard |
 
 ---
 
 ## 🎯 Landing Page Sections
 
 1. Sticky glass navigation
-2. Hero with ORUS holographic AI core
+2. Hero with MANO holographic AI core (Core AI Operator)
 3. Live Voice Agent Sandbox (6 industries, live transcripts)
 4. Industry Agent cards
 5. Multi-Agent Workforce (MANO, OPS BOOKER, SMS BOT, EMAIL TRIAGE, REVENUE INTEL, AUTO DESK)
@@ -49,7 +49,7 @@
 - Pure HTML / CSS / JavaScript — zero dependencies, zero build step
 - Self-contained, deploy anywhere
 - Backend: Base44 (entities, automations, backend functions)
-- Voice: Gemini 2.5 Flash TTS (ORUS)
+- Voice: Gemini 2.5 Flash TTS (MANO voice engine)
 - SMS/Voice: Twilio
 - Payments: Stripe
 

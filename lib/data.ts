@@ -351,7 +351,7 @@ export const FLOW_NODES: FlowNode[] = [
     icon: Mic,
     status: "Active",
     latency: "340ms",
-    automation: "ORUS voice engine engaged",
+    automation: "MANO voice engine engaged",
     owner: "MANO",
     lastRun: "00:03 ago",
   },
@@ -598,9 +598,14 @@ export const NAV_LINKS = [
   { label: "Industries", href: "#industries" },
   { label: "Automations", href: "#workflow" },
   { label: "Dashboard", href: "#dashboard" },
-  { label: "Pricing", href: "#pricing" },
   { label: "Company", href: "#footer" },
 ]
+
+// Single primary conversion action across the entire site (Calendly booking).
+export const BOOK_DEMO_URL = "https://calendly.com/monkee-bizznus/30min"
+
+// Live agent phone line — dials the actual Mano operator.
+export const MANO_PHONE_URL = "tel:+18778734701"
 
 export const RECOVERY_DIFFERENTIATORS: string[] = [
   "Missed Calls",
@@ -630,24 +635,52 @@ export const SERVICETITAN_POINTS: ServiceTitanPoint[] = [
   { icon: BarChart3, title: "Executive Reporting", desc: "Surface recovered revenue, conversion, and performance analytics for leadership." },
 ]
 
-export interface ManoResponsibility {
+
+// ---- Core Operations Team: Mano (operator) + Mila (executor) ----
+export interface CoreTeamDuty {
   icon: LucideIcon
   label: string
 }
 
-export const MANO_RESPONSIBILITIES: ManoResponsibility[] = [
-  { icon: Phone, label: "Answer Calls" },
-  { icon: Calendar, label: "Book Appointments" },
-  { icon: Target, label: "Qualify Leads" },
-  { icon: PhoneMissed, label: "Recover Missed Calls" },
-  { icon: RefreshCw, label: "Recover Abandoned Calls" },
-  { icon: Mic, label: "Recover Voicemails" },
-  { icon: FileText, label: "Generate CRM Notes" },
-  { icon: MessageSquare, label: "Send SMS" },
-  { icon: Bell, label: "Notify Dispatch" },
-  { icon: Zap, label: "Route Emergencies" },
-  { icon: UserCheck, label: "Escalate To Humans" },
-  { icon: BarChart3, label: "Produce Analytics" },
+export interface CoreTeamMember {
+  persona: "mano" | "mila"
+  name: string
+  role: string
+  tagline: string
+  accent: string
+  accentSoft: string
+  duties: CoreTeamDuty[]
+}
+
+export const CORE_TEAM: CoreTeamMember[] = [
+  {
+    persona: "mano",
+    name: "Mano",
+    role: "Core AI Operator",
+    tagline: "The voice. Mano answers, talks, qualifies, and closes the conversation — live, in real time.",
+    accent: "#60a5fa",
+    accentSoft: "rgba(37,99,235,0.12)",
+    duties: [
+      { icon: Phone, label: "Answers Every Call" },
+      { icon: Mic, label: "Talks & Engages" },
+      { icon: Target, label: "Qualifies The Lead" },
+      { icon: UserCheck, label: "Closes The Conversation" },
+    ],
+  },
+  {
+    persona: "mila",
+    name: "Mila",
+    role: "Operations & Execution Specialist",
+    tagline: "The execution. While Mano keeps talking, Mila books, confirms, updates, and queues the follow-up.",
+    accent: "#2dd4bf",
+    accentSoft: "rgba(45,212,191,0.12)",
+    duties: [
+      { icon: Calendar, label: "Books The Appointment" },
+      { icon: MessageSquare, label: "Fires SMS Confirmation" },
+      { icon: FileText, label: "Updates The CRM" },
+      { icon: RefreshCw, label: "Queues Follow-Up" },
+    ],
+  },
 ]
 
 // ---- Live AI Demonstration: 8-step automation pipeline ----
@@ -659,7 +692,7 @@ export interface AutomationStep {
 
 export const AUTOMATION_STEPS: AutomationStep[] = [
   { icon: PhoneIncoming, label: "Incoming Call", detail: "Twilio webhook received" },
-  { icon: Waves, label: "Voice Processing", detail: "ORUS neural ASR engaged" },
+  { icon: Waves, label: "Voice Processing", detail: "MANO neural ASR engaged" },
   { icon: Target, label: "Intent Detection", detail: "Service + trade-in intent" },
   { icon: UserCheck, label: "Lead Qualified", detail: "HOT lead · score 96" },
   { icon: Calendar, label: "Appointment Booked", detail: "Calendar slot reserved" },

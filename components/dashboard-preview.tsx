@@ -213,7 +213,7 @@ export function DashboardPreview() {
           <span className="h-3 w-3 rounded-full bg-green/70" />
           <div className="ml-3 flex items-center gap-2 text-xs text-muted">
             <LayoutDashboard className="h-3.5 w-3.5 text-blue-light" />
-            ORUS Command Center
+            MANOLOGICS Command Center
           </div>
         </div>
 
@@ -306,7 +306,7 @@ export function DashboardPreview() {
                 </span>
               </div>
               <p className="mt-2 text-xs text-muted">
-                ORUS continuously ingests and learns from every connected source so your agents always speak with current information.
+                MANOLOGICS continuously ingests and learns from every connected source so your agents always speak with current information.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {KNOWLEDGE_SOURCES.map((k, i) => (

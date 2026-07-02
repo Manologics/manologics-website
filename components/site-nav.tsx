@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Menu, X, Zap } from "lucide-react"
-import { NAV_LINKS } from "@/lib/data"
+import { Menu, X, Calendar } from "lucide-react"
+import { NAV_LINKS, BOOK_DEMO_URL } from "@/lib/data"
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false)
@@ -59,14 +59,16 @@ export function SiteNav() {
             Login
           </a>
           <a
-            href="#demo"
+            href={BOOK_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded-[10px] px-4 py-2 text-[13px] font-semibold text-white transition-transform hover:-translate-y-0.5"
             style={{
               background: "linear-gradient(135deg, #2563eb, #8b5cf6)",
               boxShadow: "0 0 25px rgba(37,99,235,0.4)",
             }}
           >
-            <Zap className="h-3.5 w-3.5" /> Launch Demo
+            <Calendar className="h-3.5 w-3.5" /> Book a Live Demo
           </a>
         </div>
 
@@ -106,12 +108,14 @@ export function SiteNav() {
               Login
             </a>
             <a
-              href="#demo"
+              href={BOOK_DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className="flex items-center justify-center gap-1.5 rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white"
               style={{ background: "linear-gradient(135deg, #2563eb, #8b5cf6)" }}
             >
-              <Zap className="h-4 w-4" /> Launch Demo
+              <Calendar className="h-4 w-4" /> Book a Live Demo
             </a>
           </div>
         </div>

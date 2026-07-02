@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { Calculator } from "lucide-react"
+import { Calendar } from "lucide-react"
 import { SectionHeading } from "./section-heading"
+import { BOOK_DEMO_URL } from "@/lib/data"
 
 function money(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US")
@@ -17,7 +18,7 @@ export function RoiCalculator() {
 
   const result = useMemo(() => {
     const missed = (calls * missedPct) / 100
-    const recovered = missed * 0.85 // ORUS recovers ~85% of missed calls
+    const recovered = missed * 0.85 // MANO recovers ~85% of missed calls
     const booked = (recovered * closeRate) / 100
     const monthly = booked * dealValue
     const annual = monthly * 12
@@ -54,12 +55,12 @@ export function RoiCalculator() {
   ]
 
   return (
-    <section id="pricing" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
+    <section id="roi" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="ROI Calculator"
         title={
           <>
-            See what ORUS recovers for <span className="grad-text">your business</span>
+            See what MANO recovers for <span className="grad-text">your business</span>
           </>
         }
         sub="Adjust the inputs to model your missed-call revenue. The projection updates instantly."
@@ -92,7 +93,7 @@ export function RoiCalculator() {
               <p className="mt-1 font-display text-xl font-extrabold text-red">{Math.round(result.missed)}</p>
             </div>
             <div className="rounded-xl border border-border2 bg-bg2/60 p-4">
-              <p className="text-xs text-muted">Recovered by ORUS</p>
+              <p className="text-xs text-muted">Recovered by MANO</p>
               <p className="mt-1 font-display text-xl font-extrabold text-green">{Math.round(result.recovered)}</p>
             </div>
           </div>
@@ -180,11 +181,13 @@ export function RoiCalculator() {
           </div>
 
           <a
-            href="#contact"
+            href={BOOK_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue to-purple px-6 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
           >
-            <Calculator className="h-4 w-4" />
-            Claim this revenue with ORUS
+            <Calendar className="h-4 w-4" />
+            Book a Live Demo
           </a>
         </div>
       </div>

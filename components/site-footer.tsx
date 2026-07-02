@@ -1,11 +1,12 @@
 "use client"
 
 import { Cpu } from "lucide-react"
+import { BOOK_DEMO_URL } from "@/lib/data"
 
 const COLUMNS = [
   {
     title: "Platform",
-    links: ["ORUS Engine", "Voice Agents", "Workflow Builder", "Command Center", "Integrations"],
+    links: ["MANOLOGICS Engine", "Voice Agents", "Workflow Builder", "Command Center", "Integrations"],
   },
   {
     title: "Industries",
@@ -34,8 +35,8 @@ export function SiteFooter() {
               <span className="font-display text-lg font-extrabold tracking-tight text-foreground">MANOLOGICS</span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              The AI workforce platform powered by ORUS. We answer, qualify, book, and follow up — so your business never
-              misses another opportunity.
+              The AI workforce platform powered by MANOLOGICS. We answer, qualify, book, and follow up — so your business
+              never misses another opportunity.
             </p>
             <div className="mt-5 flex items-center gap-2">
               <span className="dot-pulse block h-2 w-2 rounded-full bg-green" />
@@ -47,13 +48,20 @@ export function SiteFooter() {
             <div key={col.title}>
               <h3 className="text-sm font-bold text-foreground">{col.title}</h3>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-muted transition-colors hover:text-blue-light">
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isBookDemo = link === "Book a Demo"
+                  return (
+                    <li key={link}>
+                      <a
+                        href={isBookDemo ? BOOK_DEMO_URL : "#"}
+                        {...(isBookDemo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="text-sm text-muted transition-colors hover:text-blue-light"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}
@@ -61,7 +69,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border2 pt-6 sm:flex-row">
           <p className="text-xs text-faint">
-            © {new Date().getFullYear()} MANOLOGICS. All rights reserved. Powered by ORUS.
+            © {new Date().getFullYear()} MANOLOGICS. All rights reserved.
           </p>
           <p className="text-xs text-faint">Built for businesses that refuse to miss a call.</p>
         </div>

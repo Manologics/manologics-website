@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Zap, Phone, Calendar, Check } from "lucide-react"
-import { OrusCore } from "./orus-core"
+import { Phone, Calendar, Check } from "lucide-react"
+import { ManoOperator } from "./mano-operator"
 import { AnimatedCounter } from "./animated-counter"
-import { HERO_STATS } from "@/lib/data"
+import { HERO_STATS, BOOK_DEMO_URL, MANO_PHONE_URL } from "@/lib/data"
 
 const features = ["No credit card", "Live AI call", "English + Spanish", "Setup in minutes"]
 
@@ -33,14 +33,16 @@ export function Hero() {
               follow-ups, update CRMs, recover missed revenue, and automate your business 24/7.
             </p>
             <div className="mt-8 flex flex-wrap gap-3.5">
-              <a href="#demo" className="btn-os btn-primary light-sweep">
-                <Zap className="h-4 w-4" /> Launch Live Demo
+              <a
+                href={BOOK_DEMO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-os btn-primary light-sweep"
+              >
+                <Calendar className="h-4 w-4" /> Book a Live Demo
               </a>
-              <a href="#talk" className="btn-os btn-ghost">
-                <Phone className="h-4 w-4" /> Talk With Our AI
-              </a>
-              <a href="#contact" className="btn-os btn-ghost">
-                <Calendar className="h-4 w-4" /> Book Enterprise Consultation
+              <a href={MANO_PHONE_URL} className="btn-os btn-ghost">
+                <Phone className="h-4 w-4" /> Talk to MANO Now
               </a>
             </div>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
@@ -57,7 +59,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <OrusCore size={420} />
+            <ManoOperator size={420} />
           </motion.div>
         </div>
 
