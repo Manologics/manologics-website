@@ -295,14 +295,14 @@ h3 {
     box-shadow: 0 0 90px rgba(37, 99, 235, 0.55), inset 0 0 55px rgba(139, 92, 246, 0.3);
   }
 }
-/* Mila (executor): green→cyan idle breathing, matching Mano's cadence */
+/* Mila (executor): teal→cyan idle breathing, matching Mano's cadence */
 @keyframes core-pulse-mila {
   0%,
   100% {
-    box-shadow: 0 0 60px rgba(34, 197, 94, 0.32), inset 0 0 40px rgba(6, 182, 212, 0.2);
+    box-shadow: 0 0 60px rgba(45, 212, 191, 0.32), inset 0 0 40px rgba(6, 182, 212, 0.2);
   }
   50% {
-    box-shadow: 0 0 90px rgba(34, 197, 94, 0.5), inset 0 0 55px rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 90px rgba(45, 212, 191, 0.5), inset 0 0 55px rgba(6, 182, 212, 0.3);
   }
 }
 /* listening: brighter, cyan-tinted breathing */

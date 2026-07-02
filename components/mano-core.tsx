@@ -96,7 +96,7 @@ export function ManoCore() {
             Mano talks
           </span>
           <ArrowRight className="h-4 w-4 rotate-90 text-muted sm:rotate-0" aria-hidden />
-          <span className="font-display text-sm font-bold" style={{ color: "#4ade80" }}>
+          <span className="font-display text-sm font-bold" style={{ color: "#2dd4bf" }}>
             Mila executes
           </span>
           <span className="text-sm text-muted sm:ml-2">

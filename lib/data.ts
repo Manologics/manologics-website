@@ -598,9 +598,12 @@ export const NAV_LINKS = [
   { label: "Industries", href: "#industries" },
   { label: "Automations", href: "#workflow" },
   { label: "Dashboard", href: "#dashboard" },
-  { label: "Pricing", href: "#pricing" },
   { label: "Company", href: "#footer" },
 ]
+
+// Single primary conversion action across the entire site (Calendly booking).
+// TODO: replace with the real MANOLOGICS Calendly link.
+export const BOOK_DEMO_URL = "https://calendly.com/manologics/live-demo"
 
 export const RECOVERY_DIFFERENTIATORS: string[] = [
   "Missed Calls",
@@ -630,25 +633,6 @@ export const SERVICETITAN_POINTS: ServiceTitanPoint[] = [
   { icon: BarChart3, title: "Executive Reporting", desc: "Surface recovered revenue, conversion, and performance analytics for leadership." },
 ]
 
-export interface ManoResponsibility {
-  icon: LucideIcon
-  label: string
-}
-
-export const MANO_RESPONSIBILITIES: ManoResponsibility[] = [
-  { icon: Phone, label: "Answer Calls" },
-  { icon: Calendar, label: "Book Appointments" },
-  { icon: Target, label: "Qualify Leads" },
-  { icon: PhoneMissed, label: "Recover Missed Calls" },
-  { icon: RefreshCw, label: "Recover Abandoned Calls" },
-  { icon: Mic, label: "Recover Voicemails" },
-  { icon: FileText, label: "Generate CRM Notes" },
-  { icon: MessageSquare, label: "Send SMS" },
-  { icon: Bell, label: "Notify Dispatch" },
-  { icon: Zap, label: "Route Emergencies" },
-  { icon: UserCheck, label: "Escalate To Humans" },
-  { icon: BarChart3, label: "Produce Analytics" },
-]
 
 // ---- Core Operations Team: Mano (operator) + Mila (executor) ----
 export interface CoreTeamDuty {
@@ -686,8 +670,8 @@ export const CORE_TEAM: CoreTeamMember[] = [
     name: "Mila",
     role: "Operations & Execution Specialist",
     tagline: "The execution. While Mano keeps talking, Mila books, confirms, updates, and queues the follow-up.",
-    accent: "#4ade80",
-    accentSoft: "rgba(34,197,94,0.12)",
+    accent: "#2dd4bf",
+    accentSoft: "rgba(45,212,191,0.12)",
     duties: [
       { icon: Calendar, label: "Books The Appointment" },
       { icon: MessageSquare, label: "Fires SMS Confirmation" },

@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { Calculator } from "lucide-react"
+import { Calendar } from "lucide-react"
 import { SectionHeading } from "./section-heading"
+import { BOOK_DEMO_URL } from "@/lib/data"
 
 function money(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US")
@@ -54,7 +55,7 @@ export function RoiCalculator() {
   ]
 
   return (
-    <section id="pricing" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
+    <section id="roi" className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <SectionHeading
         eyebrow="ROI Calculator"
         title={
@@ -180,11 +181,13 @@ export function RoiCalculator() {
           </div>
 
           <a
-            href="#contact"
+            href={BOOK_DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue to-purple px-6 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.02]"
           >
-            <Calculator className="h-4 w-4" />
-            Claim this revenue with MANO
+            <Calendar className="h-4 w-4" />
+            Book a Live Demo
           </a>
         </div>
       </div>
